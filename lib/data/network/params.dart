@@ -1,0 +1,43 @@
+/// API body Params
+class Param {
+  static String phoneCountryCode = 'phone_country_code';
+  static String phoneNumber = 'phone_number';
+  static String deviceToken = 'device_token';
+  static String deviceOS = 'device_os';
+  static String deviceOSVersion = 'device_os_version';
+  static String deviceModel = 'device_model';
+  static String ipAddress = 'ip_address';
+  static String name = 'name';
+  static String email = 'email';
+  static String cityId = 'city_id';
+  static String gender = 'gender';
+  static String vehicleId = 'vehicle_id';
+  static String plateNumber = 'plate_number';
+  static String otp = 'otp';
+  static String userVehicleId = 'user_vehicle_id';
+  static String profileImage = 'profile_image';
+  static String latitude = 'latitude';
+  static String longitude = 'longitude';
+  static String parkingType = 'parking_type';
+  static String parkingDurationType = 'parking_duration_type';
+  static String parkingId = 'parking_id';
+  static String parkingTypeId = 'parking_type_id';
+  static String checkInDateTime = 'check_in_date_time';
+  static String checkOutDateTime = 'check_out_date_time';
+  static String reservationDuration = 'reservation_duration';
+  static String amount = 'amount';
+  static String filter = 'filter';
+  static String page = 'page';
+  static String search = 'search';
+  static String userReservationId = 'user_reservation_id';
+  static String reservationId = 'reservation_id';
+  static String comment = 'comment';
+  static String paymentMethod = 'payment_method';
+  static String transactionId = 'transaction_id';
+  static String sourcePaymentType = 'source_payment_type';
+  static String cardLastFour = 'card_last_four';
+  static String userWalletId = 'user_wallet_id';
+  static String orderId = 'order_id';
+  static String languageId = 'language_id';
+  static String reasonForLeaving = 'reason_for_leaving';
+}
