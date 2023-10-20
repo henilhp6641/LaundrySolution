@@ -1,6 +1,7 @@
 import 'package:ft_washing_app/module/bottom/new_order/cart/cart_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
+import '../../profile/laundry_one/laundry_one_controller.dart';
 import '../product_selection_screen/product_selection_controller.dart';
 
 class CartScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final cartController = Get.put<CartController>(CartController());
   final productSelectionController = Get.find<ProductSelectionController>();
+  final laundryOneController = Get.put<LaundryOneController>(LaundryOneController());
 
   @override
   void initState() {
@@ -127,6 +129,7 @@ class _CartScreenState extends State<CartScreen> {
                     const SizedBox(
                       height: 20,
                     ),
+                    // laundryOneController.laundryOne.isEmpty ?  Container():
                     Expanded(
                       child: Row(
                         children: [
@@ -175,9 +178,11 @@ class _CartScreenState extends State<CartScreen> {
                         ],
                       ),
                     ),
+                    // laundryOneController.laundryOne.isEmpty ?  Expanded(child: Container()):
                     const SizedBox(
                       height: 20,
                     ),
+                    // Expanded(child: C),
                     CommonAppButton(
                       buttonType: ButtonType.enable,
                       text: ConstString.proceedCheckOut,

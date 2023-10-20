@@ -87,11 +87,13 @@ class _AllAddressScreenState extends State<AllAddressScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                allAddressController.addresses.isEmpty
-                    ? const Center(
-                        child: Text('No addresses found'),
-                      )
-                    : ListView.builder(
+
+                if (allAddressController.showProgress.value)
+                  const Center(child: CircularProgressIndicator())
+                else if (allAddressController.addresses.isEmpty)
+                  const Center(child: Text('No Addresses Found')) // You can style this text according to your needs.
+                else
+                ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(top: 20),
                         shrinkWrap: true,

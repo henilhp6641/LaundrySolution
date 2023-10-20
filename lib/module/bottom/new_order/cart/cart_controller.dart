@@ -33,29 +33,22 @@ class CartController extends GetxController{
     DocumentReference userRef = fireStore.collection(FirebaseString.users).doc(userId);
     Map<String, dynamic> newAddress = {
       'orderDate': DateFormat('yyyy-MM-dd').format(DateTime.now()),//orderDateController.text,
+      'orderPickUpDate': DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 2))),
       'orderNumber': orderCount.value,//orderNumberController.text,
       'orderSpent': total.value,//orderSpentController.text,
       'orderStatus': 'Pending'//orderStatusController.text,
     };
 
     try {
-      await userRef.update({
+      orderCount.value++;
+      await userRef.update(
+          {
         'orders': FieldValue.arrayUnion([newAddress]),
       });
 
       // controller.addAddress(newAddress);
 
       dismissLoader();
-
-
-      // Get.back();
-      // Navigator.pushAndRemoveUntil(
-      //     context as BuildContext,
-      //     MaterialPageRoute(
-      //         builder: (context) => AllAddressScreen()
-      //     ),
-      //       (route) => false,
-      // );
 
     } catch (e) {
       dismissLoader();

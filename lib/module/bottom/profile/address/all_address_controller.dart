@@ -5,6 +5,7 @@ import 'package:ft_washing_app/utils/firebase_string.dart';
 class AllAddressController extends GetxController {
   RxList<Map<String, dynamic>> addresses = <Map<String, dynamic>>[].obs;
   RxInt? selectedIndex = (0).obs;  // -1 indicates no selection
+  RxBool showProgress = false.obs;
 
   void addAddress(Map<String, dynamic> map){
     addresses.add(map);
@@ -31,6 +32,7 @@ Future<void> deleteAddressInFirestore(Map<String, dynamic> address) async {
 }
 
   Future<List<Map<String, dynamic>>?> getAddresses() async {
+    showProgress.value = true;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     String userId = AppPref().uid;
     DocumentReference userRef =
@@ -49,14 +51,17 @@ Future<void> deleteAddressInFirestore(Map<String, dynamic> address) async {
               List<Map<String, dynamic>>.from(userData['addresses']);
           return addresses;
         } else {
+          showProgress.value = false;
           print("User has no addresses.");
           return null;
         }
       } else {
+        showProgress.value = false;
         print("User does not exist.");
         return null;
       }
     } catch (e) {
+      showProgress.value = false;
       print("Error fetching addresses: $e");
       return null;
     }
@@ -66,6 +71,7 @@ Future<void> deleteAddressInFirestore(Map<String, dynamic> address) async {
     List<Map<String, dynamic>>? fetchedAddresses = await getAddresses();
     if (fetchedAddresses != null) {
       addresses.value = fetchedAddresses;
+      showProgress.value = false;
     }
   }
 

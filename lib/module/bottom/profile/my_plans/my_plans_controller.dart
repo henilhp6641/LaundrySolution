@@ -7,8 +7,11 @@ class MyPlanController extends GetxController{
  bool isActive=false;
 
  RxMap<String, dynamic> plan = <String, dynamic>{}.obs;
+ RxBool showProgress = false.obs;
 
  Future<Map<String, dynamic>?> getPlan() async {
+  showProgress.value = true;
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String userId = AppPref().uid;
   DocumentReference userRef =
@@ -27,14 +30,18 @@ class MyPlanController extends GetxController{
      return planData;
     } else {
      print("User has no plan.");
+     showProgress.value = false;
      return null;
     }
    } else {
     print("User does not exist.");
+    showProgress.value = false;
     return null;
    }
   } catch (e) {
    print("Error fetching plan: $e");
+   showProgress.value = false;
+
    return null;
   }
  }
@@ -43,6 +50,7 @@ class MyPlanController extends GetxController{
   Map<String, dynamic>? fetchedPlan = await getPlan();
   if (fetchedPlan != null) {
    plan.value = fetchedPlan;
+   showProgress.value = false;
   }
  }
 

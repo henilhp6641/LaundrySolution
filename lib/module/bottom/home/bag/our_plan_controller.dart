@@ -3,6 +3,7 @@ import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:ft_washing_app/utils/firebase_string.dart';
 import 'package:ft_washing_app/widgets/error_sheet.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../widgets/app_loader.dart';
 
@@ -42,7 +43,8 @@ class OurPlanController extends GetxController{
       'planWeight': list[index]['weight'],
       'planTitle': list[index]['title'],
       'planPrice': list[index]['price'],
-      'planStatus': "Active"//list[index]['status'],
+      'planStatus': "Active", //list[index]['status'],
+      'planLastDate':DateFormat('yyyy-MM-dd').format(DateTime(DateTime.now().year, DateTime.now().month + 1, 0))
     };
     try {
       await userRef.update({

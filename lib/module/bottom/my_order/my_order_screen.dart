@@ -72,6 +72,15 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                         const SizedBox(
                           height: 5,
                         ),
+
+                        NewWidget(
+                            title: "Expected Pickup Date",
+                            value:  myOrderController.order[index]
+                            ['orderPickUpDate']//"2022-09-14 14:14:41",
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
                         NewWidget(
                           title: "Status",
                           value: myOrderController.order[index]

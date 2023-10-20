@@ -88,7 +88,7 @@ class _OurPlanScreenState extends State<OurPlanScreen> {
                                 height: 4,
                               ),
                               Text(
-                                "\$ ${monthlyBagController.list[index]['price'].toString()}",
+                                "\$ ${monthlyBagController.list[index]['price'].toString()}/month",
                                 style: const TextStyle()
                                     .normal20w600
                                     .textColor(AppColor.primary),

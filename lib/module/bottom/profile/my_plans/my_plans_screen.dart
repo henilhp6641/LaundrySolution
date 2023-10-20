@@ -17,20 +17,6 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
   final myPlanController = Get.put<MyPlanController>(MyPlanController());
   final monthlyBagController = Get.put<OurPlanController>(OurPlanController());
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   setState(() {
-  //     for (int i = 0; i < monthlyBagController.list.length; i++) {
-  //       if (monthlyBagController.list[i]['status'] == "Active") {
-  //         myPlanController.isActive = true;
-  //       }
-  //     }
-  //     print("BOOL IS ${myPlanController.isActive}");
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +39,12 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
                 return Obx(
                   () => Column(
                     children: [
-                      (myPlanController.plan.isEmpty)
-                          ? const CircularProgressIndicator()
-                          : Container(
+                      if (myPlanController.showProgress.value)
+                        const CircularProgressIndicator()
+                      else if (myPlanController.plan.isEmpty)
+                        Text('No Active Plan') // You can style this text according to your needs.
+                      else
+                        Container(
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: AppColor.primary,
@@ -102,7 +91,7 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
                                         ),
                                         Obx(
                                           () => Text(
-                                            "\$ ${myPlanController.plan['planPrice'].toString()}",
+                                            "\$ ${myPlanController.plan['planPrice'].toString()}/month",
                                             style: const TextStyle()
                                                 .normal20w600
                                                 .textColor(AppColor.primary),
@@ -116,14 +105,31 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
                                           height: 8,
                                         ),
                                         Obx(
-                                          () => Text(
-                                              myPlanController.plan['planStatus'].toString(),
+                                          () => Row(
+                                            children: [
+                                              Text(
+                                                  myPlanController.plan['planStatus'].toString(),
+                                                  style: const TextStyle()
+                                                      .normal20w600
+                                                      .bold
+                                                      .textColor(
+                                                          AppColor.primaryGreen)),
+
+                                            ],
+                                          ),
+                                        ),
+                                        Obx(
+                                          ()=> Text(
+                                              "(Expire on ${
+                                                  myPlanController
+                                                      .plan['planLastDate']
+                                                      .toString()
+                                              })",
                                               style: const TextStyle()
-                                                  .normal20w600
-                                                  .bold
+                                                  .size(16)
                                                   .textColor(
-                                                      AppColor.primaryGreen)),
-                                        )
+                                                  AppColor.primary)),
+                                        ),
                                       ],
                                     ),
                                   ),

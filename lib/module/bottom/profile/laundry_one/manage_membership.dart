@@ -30,45 +30,44 @@ class _MembershipScreenState extends State<MembershipScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        appBar: AppBar(),
-        centerTitle: true,
-         title: ConstString.manageMembership,
-      ),
-      backgroundColor: AppColor.white,
-      body: ListView(
-        children:  [
-           ListTile(
-            title: const Text('Your membership'),
-            subtitle: const Text('Laundry One'),
-            trailing: Text(laundryOneController.laundryOne.isNotEmpty ?'Renews on ${laundryOneController.laundryOne['laundryOneDate']}' : ""),
-          ),
-          const Divider(),
-           ListTile(
-            title: const Text('Current Membership'),
-            subtitle: const Text('Monthly Plan - \$9.99'),
-            trailing: Text( laundryOneController.laundryOne.isNotEmpty ? "${laundryOneController.laundryOne['laundryOneStatus']}" : "Inactive",style: TextStyle(color: laundryOneController.laundryOne.isNotEmpty ? AppColor.primaryGreen : AppColor.primaryRed),),
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text('Renew membership'),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: CommonAppButton(
-                buttonType: ButtonType.enable,
-                text: 'Make Payment',
-                width: 600,
-                color: AppColor.primary,
-                onTap: () async{
-                  // FocusScope.of(context).unfocus();
-                  await makePayment();
-
-                },
+    return Obx(
+     ()=>Scaffold(
+        appBar: CommonAppBar(
+          appBar: AppBar(),
+          centerTitle: true,
+           title: ConstString.manageMembership,
+        ),
+        backgroundColor: AppColor.white,
+        body: laundryOneController.laundryOne.isEmpty ?Center(child: CircularProgressIndicator()) : ListView(
+          children:  [
+             ListTile(
+              title: const Text('Your membership'),
+              subtitle: const Text('Laundry One'),
+              trailing: Text(laundryOneController.laundryOne.isNotEmpty ?'Renews on ${laundryOneController.laundryOne['laundryOneDate']}' : "")),
+            const Divider(),
+             ListTile(
+              title: const Text('Current Membership'),
+              subtitle: const Text('Monthly Plan - \$9.99'),
+              trailing:  Text( laundryOneController.laundryOne.isNotEmpty ? "${laundryOneController.laundryOne['laundryOneStatus']}" : "Inactive",style: TextStyle(color: laundryOneController.laundryOne.isNotEmpty ? AppColor.primaryGreen : AppColor.primaryRed),)),
+            const Divider(),
+            ListTile(
+              title: const Text('Renew membership'),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: CommonAppButton(
+                  buttonType: ButtonType.enable,
+                  text: 'Make Payment',
+                  width: 600,
+                  color: AppColor.primary,
+                  onTap: () async{
+                    // FocusScope.of(context).unfocus();
+                    await makePayment();
+                  },
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        )
       ),
     );
   }
