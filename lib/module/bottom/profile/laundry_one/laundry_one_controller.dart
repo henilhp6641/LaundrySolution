@@ -9,6 +9,8 @@ import '../../../../widgets/app_loader.dart';
 
 class LaundryOneController extends GetxController{
 
+  RxBool showProgress = false.obs;
+  int laundryOnePrice=10;
 
   Future<void> addLaundryOne() async {
 
@@ -16,6 +18,7 @@ class LaundryOneController extends GetxController{
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
     String userId = AppPref().uid;
     DocumentReference userRef = fireStore.collection(FirebaseString.users).doc(userId);
+
 
     Map<String, dynamic> laundryOne = {
       'laundryOneDate': DateFormat('yyyy-MM-dd').format(DateTime(DateTime.now().year, DateTime.now().month + 1, 0)),
@@ -37,10 +40,12 @@ class LaundryOneController extends GetxController{
   RxMap<String, dynamic> laundryOne = <String, dynamic>{}.obs;
 
   Future<Map<String, dynamic>?> getPlan() async {
+    showProgress.value = true;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     String userId = AppPref().uid;
     DocumentReference userRef =
     firestore.collection(FirebaseString.users).doc(userId);
+
 
     try {
       DocumentSnapshot userDocument = await userRef.get();
@@ -54,14 +59,17 @@ class LaundryOneController extends GetxController{
           Map<String, dynamic> planData = userData['laundryOne'];
           return planData;
         } else {
+          showProgress.value = false;
           print("User has no Laundry One.");
           return null;
         }
       } else {
+        showProgress.value = false;
         print("User does not exist.");
         return null;
       }
     } catch (e) {
+      showProgress.value = false;
       print("Error fetching Laundry One: $e");
       return null;
     }
@@ -71,6 +79,7 @@ class LaundryOneController extends GetxController{
     Map<String, dynamic>? fetchedPlan = await getPlan();
     if (fetchedPlan != null) {
       laundryOne.value = fetchedPlan;
+      showProgress.value = false;
     }
   }
 

@@ -150,54 +150,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ),
                         ],
                       ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     Row(
-                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //       children: [
-                      //         Row(
-                      //           children: [
-                      //             Text(
-                      //               "Mostafa salah",
-                      //               style: const TextStyle().normal18w600,
-                      //             ),
-                      //             Container(
-                      //               margin: const EdgeInsets.only(left: 10),
-                      //               padding: const EdgeInsets.symmetric(
-                      //                   horizontal: 10, vertical: 4),
-                      //               decoration: BoxDecoration(
-                      //                 borderRadius: BorderRadius.circular(12),
-                      //                 color: AppColor.primary,
-                      //               ),
-                      //               child: Text(
-                      //                 "Home",
-                      //                 style: const TextStyle()
-                      //                     .normal14w500
-                      //                     .textColor(AppColor.white),
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //
-                      //       ],
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 10,
-                      //     ),
-                      //     Text(
-                      //       "Cairo",
-                      //       style: const TextStyle().normal16w400,
-                      //     ),
-                      //     const SizedBox(
-                      //       height: 5,
-                      //     ),
-                      //     Text(
-                      //       "Nasar City, Cairo, Cgypt",
-                      //       style: const TextStyle().normal16w400,
-                      //     ),
-                      //   ],
-                      // ),
                     );
                   },
                 ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -38,7 +39,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
            title: ConstString.manageMembership,
         ),
         backgroundColor: AppColor.white,
-        body: laundryOneController.laundryOne.isEmpty ?Center(child: CircularProgressIndicator()) : ListView(
+        body: laundryOneController.showProgress.value ? const Center(child: CircularProgressIndicator()) : ListView(
           children:  [
              ListTile(
               title: const Text('Your membership'),
@@ -47,10 +48,10 @@ class _MembershipScreenState extends State<MembershipScreen> {
             const Divider(),
              ListTile(
               title: const Text('Current Membership'),
-              subtitle: const Text('Monthly Plan - \$9.99'),
+              subtitle: const Text('Monthly Plan - \$10.00'),
               trailing:  Text( laundryOneController.laundryOne.isNotEmpty ? "${laundryOneController.laundryOne['laundryOneStatus']}" : "Inactive",style: TextStyle(color: laundryOneController.laundryOne.isNotEmpty ? AppColor.primaryGreen : AppColor.primaryRed),)),
             const Divider(),
-            ListTile(
+            laundryOneController.laundryOne['laundryOneStatus']=='Active' ? Container():  ListTile(
               title: const Text('Renew membership'),
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 15),
@@ -61,7 +62,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                   color: AppColor.primary,
                   onTap: () async{
                     // FocusScope.of(context).unfocus();
-                    await makePayment();
+                    await makePayment() ;
                   },
                 ),
               ),
@@ -178,7 +179,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
   }
 
   calculateAmount(String amount) {
-    const calculatedAmount =  9.99 * 100;
+    int calculatedAmount = laundryOneController.laundryOnePrice * 100;
     return calculatedAmount.toString();
   }
 }

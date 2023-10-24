@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   User? user = FirebaseAuth.instance.currentUser;
 
   goNextScreen() async {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (user == null || user?.emailVerified == false) {
         Get.offAllNamed(AppRouter.login);
       } else {
