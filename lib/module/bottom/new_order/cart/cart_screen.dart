@@ -87,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
                             Text(
                               "\$${cartController.total}",
                               style: const TextStyle().normal20w600,
-                            ),
+                            )
                           ],
                         ),
                         const SizedBox(
@@ -199,7 +199,7 @@ class _CartScreenState extends State<CartScreen> {
                                             padding: const EdgeInsets.all(0.0),
                                             child: const Icon(
                                               Icons.circle,
-                                              size: 30.0,
+                                              size: 25.0,
                                               color: Colors.white,
                                             ),
                                           ),

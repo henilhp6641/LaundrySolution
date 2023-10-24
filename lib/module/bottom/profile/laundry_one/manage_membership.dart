@@ -25,51 +25,66 @@ class MembershipScreen extends StatefulWidget {
 }
 
 class _MembershipScreenState extends State<MembershipScreen> {
-
   Map<String, dynamic>? paymentIntent;
-  final laundryOneController = Get.put<LaundryOneController>(LaundryOneController());
+  final laundryOneController =
+      Get.put<LaundryOneController>(LaundryOneController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-     ()=>Scaffold(
-        appBar: CommonAppBar(
-          appBar: AppBar(),
-          centerTitle: true,
-           title: ConstString.manageMembership,
-        ),
-        backgroundColor: AppColor.white,
-        body: laundryOneController.showProgress.value ? const Center(child: CircularProgressIndicator()) : ListView(
-          children:  [
-             ListTile(
-              title: const Text('Your membership'),
-              subtitle: const Text('Laundry One'),
-              trailing: Text(laundryOneController.laundryOne.isNotEmpty ?'Renews on ${laundryOneController.laundryOne['laundryOneDate']}' : "")),
-            const Divider(),
-             ListTile(
-              title: const Text('Current Membership'),
-              subtitle: const Text('Monthly Plan - \$10.00'),
-              trailing:  Text( laundryOneController.laundryOne.isNotEmpty ? "${laundryOneController.laundryOne['laundryOneStatus']}" : "Inactive",style: TextStyle(color: laundryOneController.laundryOne.isNotEmpty ? AppColor.primaryGreen : AppColor.primaryRed),)),
-            const Divider(),
-            laundryOneController.laundryOne['laundryOneStatus']=='Active' ? Container():  ListTile(
-              title: const Text('Renew membership'),
-              subtitle: Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: CommonAppButton(
-                  buttonType: ButtonType.enable,
-                  text: 'Make Payment',
-                  width: 600,
-                  color: AppColor.primary,
-                  onTap: () async{
-                    // FocusScope.of(context).unfocus();
-                    await makePayment() ;
-                  },
-                ),
-              ),
-            ),
-          ],
-        )
-      ),
+      () => Scaffold(
+          appBar: CommonAppBar(
+            appBar: AppBar(),
+            centerTitle: true,
+            title: ConstString.manageMembership,
+          ),
+          backgroundColor: AppColor.white,
+          body: laundryOneController.showProgress.value
+              ? const Center(child: CircularProgressIndicator())
+              : ListView(
+                  children: [
+                    ListTile(
+                        title: const Text('Your membership'),
+                        subtitle: const Text('Laundry One'),
+                        trailing: Text(laundryOneController
+                                .laundryOne.isNotEmpty
+                            ? 'Renews on ${laundryOneController.laundryOne['laundryOneDate']}'
+                            : "")),
+                    const Divider(),
+                    ListTile(
+                        title: const Text('Current Membership'),
+                        subtitle: const Text('Monthly Plan - \$10.00'),
+                        trailing: Text(
+                          laundryOneController.laundryOne.isNotEmpty
+                              ? "${laundryOneController.laundryOne['laundryOneStatus']}"
+                              : "Inactive",
+                          style: TextStyle(
+                              color: laundryOneController.laundryOne.isNotEmpty
+                                  ? AppColor.primaryGreen
+                                  : AppColor.primaryRed),
+                        )),
+                    const Divider(),
+                    laundryOneController.laundryOne['laundryOneStatus'] ==
+                            'Active'
+                        ? Container()
+                        : ListTile(
+                            title: const Text('Renew membership'),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: CommonAppButton(
+                                buttonType: ButtonType.enable,
+                                text: 'Make Payment',
+                                width: 600,
+                                color: AppColor.primary,
+                                onTap: () async {
+                                  // FocusScope.of(context).unfocus();
+                                  await makePayment();
+                                },
+                              ),
+                            ),
+                          ),
+                  ],
+                )),
     );
   }
 
@@ -80,11 +95,11 @@ class _MembershipScreenState extends State<MembershipScreen> {
       //STEP 2: Initialize Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-              paymentIntentClientSecret: paymentIntent![
-              'client_secret'], //Gotten from payment intent
-              style: ThemeMode.dark,
-              merchantDisplayName: 'Ikay'))
+              paymentSheetParameters: SetupPaymentSheetParameters(
+                  paymentIntentClientSecret: paymentIntent![
+                      'client_secret'], //Gotten from payment intent
+                  style: ThemeMode.dark,
+                  merchantDisplayName: 'Ikay'))
           .then((value) {});
 
       //STEP 3: Display Payment sheet
@@ -97,32 +112,32 @@ class _MembershipScreenState extends State<MembershipScreen> {
   displayPaymentSheet() async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        Timer timer = Timer(const Duration(milliseconds: 2000), (){
+        Timer timer = Timer(const Duration(milliseconds: 2000), () {
           Navigator.of(context, rootNavigator: true).pop();
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
               builder: (BuildContext context) => const BottomBarScreen(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
         });
         showDialog(
             context: context,
             builder: (_) => const AlertDialog(
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.check_circle,
-                    color: Colors.green,
-                    size: 100.0,
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text("Payment Successful!"),
+                    ],
                   ),
-                  SizedBox(height: 10.0),
-                  Text("Payment Successful!"),
-                ],
-              ),
-            ));
+                ));
 
         laundryOneController.addLaundryOne();
 

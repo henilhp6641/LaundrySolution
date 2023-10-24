@@ -1,12 +1,14 @@
+import 'dart:ffi';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:ft_washing_app/components/loading_screen.dart';
 import 'package:ft_washing_app/module/bottom/new_order/product_selection_screen/product_selection_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:http/http.dart' as http;
 import '../../profile/address/all_address_controller.dart';
 import '../cart/cart_controller.dart';
-
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -16,16 +18,12 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-
   Map<String, dynamic>? paymentIntent;
   final cartController = Get.find<CartController>();
   final productSelectionController = Get.find<ProductSelectionController>();
 
-
-
-
   final allAddressController =
-  Get.put<AllAddressController>(AllAddressController());
+      Get.put<AllAddressController>(AllAddressController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,206 +34,255 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         appBar: AppBar(),
         title: ConstString.checkOut,
       ),
-      body: StatefulBuilder(
-        builder: (BuildContext context,
-            void Function(void Function()) setState) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppColor.primary.withOpacity(0.06)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Total cost:",
-                        style: const TextStyle().normal18w500,
-                      ),
-                      cartController.isChecked ? Text("\$ 0",style: const TextStyle().normal20w600,) : Text(
-                        "\$ ${cartController.total}",
-                        style: const TextStyle().normal20w600,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Shipping Address",
-                  style: const TextStyle().normal20w600,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColor.primary,
-                          width: 1,
-                        ),
-                        color: AppColor.primary.withOpacity(0.06),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child:  Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    allAddressController
-                                        .addresses[allAddressController.selectedIndex!.value]
-                                    ['address1'],
-                                    style: const TextStyle()
-                                        .normal18w600,
-                                  ),
-                                  Container(
-                                    margin:
-                                    const EdgeInsets.only(
-                                        left: 10),
-                                    padding: const EdgeInsets
-                                        .symmetric(
-                                        horizontal: 10,
-                                        vertical: 4),
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          12),
-                                      color: AppColor.primary,
-                                    ),
-                                    child: Text(
-                                      "Home",
-                                      style: const TextStyle()
-                                          .normal14w500
-                                          .textColor(
-                                          AppColor.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            allAddressController
-                                .addresses[allAddressController.selectedIndex!.value]['address2'],
-                            style:
-                            const TextStyle().normal16w400,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "${allAddressController.addresses[allAddressController.selectedIndex!.value]['city']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['country']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['postalCode']}",
-                            style:
-                            const TextStyle().normal16w400,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Payment",
-                  style: const TextStyle().normal20w600,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColor.primary,
-                      width: 1,
-                    ),
-                    color: AppColor.primary.withOpacity(0.06),
+      body: StatefulBuilder(builder:
+          (BuildContext context, void Function(void Function()) setState) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.account_balance_wallet_outlined,
-                                color: AppColor.gray800,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Credit / Debit Card",
-                                    style: const TextStyle().normal18w600,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-
-                                  // Get.toNamed(AppRouter.editAddressScreen);
-                                },
-                                child: const Icon(Icons.arrow_forward_ios,
-                                    size: 22, color: AppColor.gray800),
-                              ),
-                            ],
+                    color: AppColor.primary.withOpacity(0.06)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total cost:",
+                      style: const TextStyle().normal18w500,
+                    ),
+                    cartController.isChecked
+                        ? Text(
+                            "\$ 0",
+                            style: const TextStyle().normal20w600,
                           )
-                        ],
+                        : cartController.isCheckedLaundryOne
+                            ? Text(
+                                "\$ ${(cartController.total * 0.9)}",
+                                style: const TextStyle().normal20w600,
+                              )
+                            : Text(
+                                "\$ ${cartController.total}",
+                                style: const TextStyle().normal20w600,
+                              ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Shipping Address",
+                style: const TextStyle().normal20w600,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: AppColor.primary,
+                        width: 1,
                       ),
-                    ],
+                      color: AppColor.primary.withOpacity(0.06),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  allAddressController.addresses[
+                                      allAddressController
+                                          .selectedIndex!.value]['address1'],
+                                  style: const TextStyle().normal18w600,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    color: AppColor.primary,
+                                  ),
+                                  child: Text(
+                                    "Home",
+                                    style: const TextStyle()
+                                        .normal14w500
+                                        .textColor(AppColor.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          allAddressController.addresses[allAddressController
+                              .selectedIndex!.value]['address2'],
+                          style: const TextStyle().normal16w400,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "${allAddressController.addresses[allAddressController.selectedIndex!.value]['city']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['country']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['postalCode']}",
+                          style: const TextStyle().normal16w400,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Payment",
+                style: const TextStyle().normal20w600,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColor.primary,
+                    width: 1,
                   ),
+                  color: AppColor.primary.withOpacity(0.06),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                const SizedBox(
-                  height: 50,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.account_balance_wallet_outlined,
+                              color: AppColor.gray800,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Credit / Debit Card",
+                                  style: const TextStyle().normal18w600,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                // Get.toNamed(AppRouter.editAddressScreen);
+                              },
+                              child: const Icon(Icons.arrow_forward_ios,
+                                  size: 22, color: AppColor.gray800),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                CommonAppButton(
-                  buttonType: ButtonType.enable,
-                  text: ConstString.confirmPayment,
-                  onTap: () async{
-                    FocusScope.of(context).unfocus();
-                     await makePayment();
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              cartController.isChecked
+                  ? Container()
+                  : Row(
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                cartController.isCheckedLaundryOne =
+                                    !cartController.isCheckedLaundryOne;
+                              });
+                            },
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.white),
+                              child: cartController.isCheckedLaundryOne
+                                  ? Container(
+                                      padding: const EdgeInsets.all(5.0),
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.green),
+                                      child: const Icon(
+                                        Icons.check,
+                                        size: 15.0,
+                                        color: Colors.white,
+                                      ))
+                                  : Container(
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.black,
+                                      ),
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: const Icon(
+                                        Icons.circle,
+                                        size: 25.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                            )),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Text(
+                          "You Want To Go With Your Laundry One Discount?",
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+              cartController.isChecked
+                  ? Container()
+                  : const SizedBox(
+                      height: 20,
+                    ),
+              CommonAppButton(
+                buttonType: ButtonType.enable,
+                text: ConstString.confirmPayment,
+                onTap: () async {
+                  FocusScope.of(context).unfocus();
+                  // const LoadingScreen();
+                  await makePayment();
 
-                    Get.toNamed(AppRouter.checkOutScreen);
-                    // registerController.registerUser();
-                  },
-                ),
-              ],
-            ),
-          );
-        }
-      ),
+                  Get.toNamed(AppRouter.checkOutScreen);
+                  // registerController.registerUser();
+                },
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
+
   Future<void> makePayment() async {
     try {
       paymentIntent = await createPaymentIntent('100', 'USD');
@@ -243,11 +290,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       //STEP 2: Initialize Payment Sheet
       await Stripe.instance
           .initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-              paymentIntentClientSecret: paymentIntent![
-              'client_secret'], //Gotten from payment intent
-              style: ThemeMode.dark,
-              merchantDisplayName: 'Ikay'))
+              paymentSheetParameters: SetupPaymentSheetParameters(
+                  paymentIntentClientSecret: paymentIntent![
+                      'client_secret'], //Gotten from payment intent
+                  style: ThemeMode.dark,
+                  merchantDisplayName: 'Ikay'))
           .then((value) {});
 
       //STEP 3: Display Payment sheet
@@ -258,41 +305,40 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   displayPaymentSheet() async {
-
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        Timer timer = Timer(const Duration(milliseconds: 2000), (){
+        Timer timer = Timer(const Duration(milliseconds: 2000), () {
           Navigator.of(context, rootNavigator: true).pop();
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
               builder: (BuildContext context) => const BottomBarScreen(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+            (route) => false, //if you want to disable back feature set to false
           );
           showDialog(
               context: context,
               builder: (_) => const AlertDialog(
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.check_circle,
-                      color: Colors.green,
-                      size: 100.0,
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: 100.0,
+                        ),
+                        SizedBox(height: 10.0),
+                        Text(
+                            "Payment Successful! & Your Order is Successfully Placed!"),
+                      ],
                     ),
-                    SizedBox(height: 10.0),
-                    Text("Payment Successful! & Your Order is Successfully Placed!"),
-                  ],
-                ),
-              ));
+                  ));
         });
-
 
         cartController.addOrder();
-        setState(() {
-          cartController.orderCount.value++;
-        });
+        // setState(() {
+        //   cartController.orderCount.value++;
+        // });
         paymentIntent = null;
       }).onError((error, stackTrace) {
         throw Exception(error);
@@ -346,7 +392,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   }
 
   calculateAmount(String amount) {
-    final calculatedAmout =  cartController.isChecked ? 0 : cartController.total * 100;
-    return calculatedAmout.toString();
+    final calculatedAmount = cartController.isChecked
+        ? 0
+        : cartController.isCheckedLaundryOne
+            ? (cartController.total * 0.9 * 100).toInt()
+            : cartController.total * 100;
+
+
+
+    //     cartController.isChecked ? 0 : cartController.isCheckedLaundryOne
+    //       ? 10
+    // // ? (cartController.total.value * 0.9).toInt().toString() * 100
+    //         : cartController.total * 100;
+    return calculatedAmount.toString();
   }
 }

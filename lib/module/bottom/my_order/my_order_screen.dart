@@ -32,8 +32,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
             children: [
               ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 itemCount:
                 myOrderController.order.length, //databaseReference.snapshot.value.map['order'].toInt(),
                 shrinkWrap: true,
@@ -59,7 +58,8 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                         ),
                         NewWidget(
                           title: "Order Number",
-                          value:  (index+1).toString()//"OHJ8768GG",
+                          value:  myOrderController.order[index]
+                          ['orderNumber'].toString()//(index+1).toString()//"OHJ8768GG",
                         ),
                         const SizedBox(
                           height: 5,

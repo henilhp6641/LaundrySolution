@@ -62,7 +62,7 @@ class _LaundryOneScreenState extends State<LaundryOneScreen> {
             const ListTile(
               leading: Icon(Icons.local_taxi),
               title:
-                  Text('5% off eligible deliveries, and pickup orders'),
+                  Text('10% off eligible deliveries, and pickup orders'),
             ),
             const ListTile(
               leading: Icon(Icons.card_giftcard),
