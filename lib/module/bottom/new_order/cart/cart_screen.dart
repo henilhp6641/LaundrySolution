@@ -276,96 +276,77 @@ class _CartScreenState extends State<CartScreen> {
                               ['count'] <
                           1
                       ? Container()
-                      : Dismissible(
-                          key: UniqueKey(),
-                          direction: DismissDirection.endToStart,
-                          onDismissed: (direction) {
-                            setState(() {
-                              // productSelectionController.productList.removeAt(index);
-                            });
-                          },
-                          background: Container(
-                            decoration: BoxDecoration(
-                              color: AppColor.primaryRed.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Icon(
-                              Icons.delete,
-                              color: AppColor.primaryRed,
-                              size: 30,
-                            ),
+                      : Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColor.primary.withOpacity(0.06),
+                    ),
+                    padding: const EdgeInsets.all(15),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            productSelectionController
+                                .productList[index]['image'],
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.cover,
                           ),
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: AppColor.primary.withOpacity(0.06),
-                            ),
-                            padding: const EdgeInsets.all(15),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset(
-                                    productSelectionController
-                                        .productList[index]['image'],
-                                    height: 80,
-                                    width: 80,
-                                    fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "\$ ${5 * productSelectionController.productList[index]['count']}",
+                                    style: const TextStyle()
+                                        .normal20wBold
+                                        .textColor(AppColor.primary),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "\$ ${5 * productSelectionController.productList[index]['count']}",
-                                            style: const TextStyle()
-                                                .normal20wBold
-                                                .textColor(AppColor.primary),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8, vertical: 4),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                color: AppColor.primary
-                                                    .withOpacity(0.06)),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                InkWell(
-                                                    child: const Icon(
-                                                        Icons.remove),
-                                                    // ignore: curly_braces_in_flow_control_structures
-                                                    onTap: () {
-                                                      setState(() {
-                                                        cartController.total =
-                                                            cartController
-                                                                    .total -
-                                                                5;
-                                                      });
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(12),
+                                        color: AppColor.primary
+                                            .withOpacity(0.06)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        InkWell(
+                                            child: const Icon(
+                                                Icons.remove),
+                                            // ignore: curly_braces_in_flow_control_structures
+                                            onTap: () {
+                                              setState(() {
+                                                cartController.total =
+                                                    cartController
+                                                        .total -
+                                                        5;
+                                              });
 
-                                                      return productSelectionController
-                                                          .decrementCount(
-                                                              index);
-                                                    }
-                                                    /*() {
+                                              return productSelectionController
+                                                  .decrementCount(
+                                                  index);
+                                            }
+                                          /*() {
                                                 setState(() {
                                                   cartController.total =
                                                       cartController.total - 5;
@@ -390,38 +371,38 @@ class _CartScreenState extends State<CartScreen> {
                                                 //     total = total + 5 * int.parse(productSelectionController.productList[i]['count'].toString());
                                                 //   }
                                               },*/
-                                                    ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 8.0),
-                                                  child: Text(
-                                                    c.productList[index]
-                                                            ['count']
-                                                        .toString(),
-                                                    style: const TextStyle()
-                                                        .normal12w400
-                                                        .textColor(
-                                                            AppColor.primary),
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                    child:
-                                                        const Icon(Icons.add),
-                                                    onTap: () {
-                                                      setState(() {
-                                                        cartController.total =
-                                                            cartController
-                                                                    .total +
-                                                                5;
-                                                      });
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets
+                                              .symmetric(
+                                              horizontal: 8.0),
+                                          child: Text(
+                                            c.productList[index]
+                                            ['count']
+                                                .toString(),
+                                            style: const TextStyle()
+                                                .normal12w400
+                                                .textColor(
+                                                AppColor.primary),
+                                          ),
+                                        ),
+                                        InkWell(
+                                            child:
+                                            const Icon(Icons.add),
+                                            onTap: () {
+                                              setState(() {
+                                                cartController.total =
+                                                    cartController
+                                                        .total +
+                                                        5;
+                                              });
 
-                                                      return productSelectionController
-                                                          .incrementCount(
-                                                              index);
-                                                    }
+                                              return productSelectionController
+                                                  .incrementCount(
+                                                  index);
+                                            }
 
-                                                    /*() {
+                                          /*() {
                                                 setState(() {
                                                   cartController.total =
                                                       cartController.total + 5;
@@ -445,19 +426,18 @@ class _CartScreenState extends State<CartScreen> {
                                                   // productSelectionController.total_count = productSelectionController.total_count + productSelectionController.productList[index]['count'];
                                                 });
                                               },*/
-                                                    ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                            ],
                           ),
-                        );
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
             );

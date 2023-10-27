@@ -141,109 +141,109 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
+                // const SizedBox(
+                //   height: 20,
+                // ),
+                // Obx(
+                //   () => GestureDetector(
+                //     onTap: () {
+                //       loginController.isRememberUsername.value =
+                //           !loginController.isRememberUsername.value;
+                //     },
+                //     child: Row(
+                //       children: [
+                //         Transform.scale(
+                //           scale: 1,
+                //           child: Theme(
+                //             data: ThemeData(
+                //               primarySwatch: Colors.blue,
+                //               unselectedWidgetColor: AppColor.gray300,
+                //               // Your color
+                //             ),
+                //             child: SizedBox(
+                //               height: 24,
+                //               width: 24,
+                //               child: Checkbox(
+                //                 shape: RoundedRectangleBorder(
+                //                   borderRadius: BorderRadius.circular(6),
+                //                 ),
+                //                 hoverColor: AppColor.primary,
+                //                 focusColor: AppColor.primary,
+                //                 checkColor: Colors.white,
+                //                 value: loginController.isRememberUsername.value,
+                //                 onChanged: (bool? value) {
+                //                   loginController.isRememberUsername.value =
+                //                       value!;
+                //                 },
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //         const SizedBox(
+                //           width: 5,
+                //         ),
+                //         Text(
+                //           ConstString.rememberUsername,
+                //           style: const TextStyle()
+                //               .normal16w400
+                //               .textColor(AppColor.gray600),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // Obx(
+                //   () => GestureDetector(
+                //     onTap: () {
+                //       loginController.isStayLogin.value =
+                //           !loginController.isStayLogin.value;
+                //     },
+                //     child: Row(
+                //       children: [
+                //         Transform.scale(
+                //           scale: 1,
+                //           child: Theme(
+                //             data: ThemeData(
+                //               primarySwatch: Colors.blue,
+                //               unselectedWidgetColor: AppColor.gray300,
+                //               // Your color
+                //             ),
+                //             child: SizedBox(
+                //               height: 24,
+                //               width: 24,
+                //               child: Checkbox(
+                //                 shape: RoundedRectangleBorder(
+                //                   borderRadius: BorderRadius.circular(6),
+                //                 ),
+                //                 hoverColor: AppColor.primary,
+                //                 focusColor: AppColor.primary,
+                //                 checkColor: Colors.white,
+                //                 value: loginController.isStayLogin.value,
+                //                 onChanged: (bool? value) {
+                //                   loginController.isStayLogin.value = value!;
+                //                 },
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //         const SizedBox(
+                //           width: 5,
+                //         ),
+                //         Text(
+                //           ConstString.stayLoggedIn,
+                //           style: const TextStyle()
+                //               .normal16w400
+                //               .textColor(AppColor.gray600),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(
-                  height: 20,
-                ),
-                Obx(
-                  () => GestureDetector(
-                    onTap: () {
-                      loginController.isRememberUsername.value =
-                          !loginController.isRememberUsername.value;
-                    },
-                    child: Row(
-                      children: [
-                        Transform.scale(
-                          scale: 1,
-                          child: Theme(
-                            data: ThemeData(
-                              primarySwatch: Colors.blue,
-                              unselectedWidgetColor: AppColor.gray300,
-                              // Your color
-                            ),
-                            child: SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: Checkbox(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                hoverColor: AppColor.primary,
-                                focusColor: AppColor.primary,
-                                checkColor: Colors.white,
-                                value: loginController.isRememberUsername.value,
-                                onChanged: (bool? value) {
-                                  loginController.isRememberUsername.value =
-                                      value!;
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          ConstString.rememberUsername,
-                          style: const TextStyle()
-                              .normal16w400
-                              .textColor(AppColor.gray600),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Obx(
-                  () => GestureDetector(
-                    onTap: () {
-                      loginController.isStayLogin.value =
-                          !loginController.isStayLogin.value;
-                    },
-                    child: Row(
-                      children: [
-                        Transform.scale(
-                          scale: 1,
-                          child: Theme(
-                            data: ThemeData(
-                              primarySwatch: Colors.blue,
-                              unselectedWidgetColor: AppColor.gray300,
-                              // Your color
-                            ),
-                            child: SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: Checkbox(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                hoverColor: AppColor.primary,
-                                focusColor: AppColor.primary,
-                                checkColor: Colors.white,
-                                value: loginController.isStayLogin.value,
-                                onChanged: (bool? value) {
-                                  loginController.isStayLogin.value = value!;
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          ConstString.stayLoggedIn,
-                          style: const TextStyle()
-                              .normal16w400
-                              .textColor(AppColor.gray600),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Obx(
                   () => CommonAppButton(
