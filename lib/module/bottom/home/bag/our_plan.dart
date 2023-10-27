@@ -115,23 +115,33 @@ class _OurPlanScreenState extends State<OurPlanScreen> {
                                   onTap: () {
                                     FocusScope.of(context).unfocus();
 
-                                    // if (monthlyBagController.list[index]
-                                    //         ['status'] ==
-                                    //     "Active") {
-                                    //   const AlertDialog(
-                                    //     content: Column(
-                                    //       mainAxisSize: MainAxisSize.min,
-                                    //       children: [
-                                    //         Row(
-                                    //           children: [
-                                    //             Text("You only able to subscribe single plan!"),
-                                    //           ],
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   );
-                                    //
-                                    // } else {
+                                     if (myPlanController.plan['planStatus'] ==
+                                        "Active") {
+                                       showCupertinoDialog(
+                                           context: context,
+                                           builder: (context) {
+                                             return CupertinoAlertDialog(
+                                               title: const Text(ConstString.singlePlanMessage),
+                                               actions: [
+                                                 CupertinoDialogAction(
+                                                   onPressed: () {
+                                                     Get.back();
+                                                   },
+                                                   child: const Text(ConstString.no),
+                                                 ),
+                                                 CupertinoDialogAction(
+                                                   isDestructiveAction: true,
+                                                   onPressed: () {
+                                                     Get.back();
+                                                     Get.back();
+                                                   },
+                                                   child: const Text(ConstString.yes),
+                                                 ),
+                                               ],
+                                             );
+                                           });
+
+                                    } else {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -142,7 +152,7 @@ class _OurPlanScreenState extends State<OurPlanScreen> {
                                           ));
                                     }
                                     // Get.toNamed(AppRouter.ourPlanCheckOutScreen);
-                                  // },
+                                  },
                                 ),
                               )
                             ],

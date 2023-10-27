@@ -35,6 +35,7 @@ class ProfileDividerWidget extends StatelessWidget {
                   Image.asset(
                     icon1 ?? "",
                     height: size,
+                    color: AppColor.black,
                   ),
                   // Icon(
                   //   icon1,

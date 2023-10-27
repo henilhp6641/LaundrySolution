@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:ft_washing_app/module/bottom/profile/address/all_address_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
@@ -87,17 +85,18 @@ class _AllAddressScreenState extends State<AllAddressScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 if (allAddressController.showProgress.value)
                   const Center(child: CircularProgressIndicator())
                 else if (allAddressController.addresses.isEmpty)
-                  const Center(child: Text('No Addresses Found')) // You can style this text according to your needs.
-                else
-                ListView.builder(
+                  const Center(child: Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Text('No Addresses Found'),
+                  )) // You can style this text according to your needs.
+                else ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(top: 20),
                         shrinkWrap: true,
-                        itemCount: allAddressController.addresses.length ?? 0,
+                        itemCount: allAddressController.addresses.length,
                         itemBuilder: (context, index) {
                           return Container(
                             decoration: BoxDecoration(

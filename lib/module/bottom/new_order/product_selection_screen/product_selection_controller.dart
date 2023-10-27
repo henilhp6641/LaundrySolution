@@ -59,7 +59,7 @@ class ProductSelectionController extends GetxController {
     },
     {
       "product": "T-shirt",
-      "image": "asset/Order/tshirt.jpeg",
+      "image": "asset/Order/tshirt.png",
       "price": "\$5",
       "count": 0
     },
@@ -71,7 +71,7 @@ class ProductSelectionController extends GetxController {
     },
     {
       "product": "Jeans",
-      "image": "asset/Order/jeans.jpeg",
+      "image": "asset/Order/jeans.png",
       "price": "\$5",
       "count": 0
     },
@@ -155,7 +155,7 @@ class ProductSelectionController extends GetxController {
     },
     {
       "product": "Pajamas",
-      "image": "asset/Order/pajamas.png",
+      "image": "asset/Order/pajamas.jpeg",
       "price": "\$5",
       "count": 0
     },

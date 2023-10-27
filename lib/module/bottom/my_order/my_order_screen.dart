@@ -1,5 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
+
 import 'package:ft_washing_app/module/bottom/my_order/my_order_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
@@ -30,7 +29,10 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
-              ListView.builder(
+              myOrderController.order.isEmpty ? const Center(child: Padding(
+                padding: EdgeInsets.only(top: 10.0),
+                child: Text('No Order Found'),
+              ))  :   ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 itemCount:
@@ -98,7 +100,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                           child: Column(
                             children: [
                               NewWidget(
-                                title: "Items",
+                                title: "Items price",
                                 value: "\$ ${myOrderController.order[index]
                                 ['orderSpent'].toString()}",
                               ),

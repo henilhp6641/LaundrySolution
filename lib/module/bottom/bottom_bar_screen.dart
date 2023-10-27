@@ -5,7 +5,6 @@ import 'package:ft_washing_app/module/bottom/new_order/product_selection_screen/
 import 'package:ft_washing_app/module/bottom/profile/profile_screen.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
-import 'package:ft_washing_app/utils/images.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({Key? key}) : super(key: key);
@@ -54,8 +53,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           //New
           onTap: onItemTapped,
           type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
-            const BottomNavigationBarItem(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
                 color: AppColor.grey,
@@ -67,24 +66,22 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: ConstString.start,
             ),
             BottomNavigationBarItem(
-              icon: Image.asset(dashboardUncheck,
-                  scale: 2.5, color: AppColor.greyDark),
-              activeIcon: Image.asset(
-                dashboardCheck,
+              icon: Icon(Icons.shopping_bag_outlined),
+              activeIcon: Icon(
+                Icons.shopping_bag,
                 color: AppColor.primary,
-                scale: 2.5,
               ),
               label: ConstString.newOrders,
             ),
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.people_alt_outlined),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.dns_outlined),
               activeIcon: Icon(
-                Icons.people_alt_outlined,
+                Icons.dns,
                 color: AppColor.primary,
               ),
               label: ConstString.myOrders,
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.person_outline, color: AppColor.greyDark),
               activeIcon: Icon(Icons.person, color: AppColor.primary),
               label: ConstString.profile,

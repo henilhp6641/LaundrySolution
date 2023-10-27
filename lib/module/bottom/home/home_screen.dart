@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             // Get.toNamed(AppRouter.productSelectionScreen);
                             bottomBarController.selectedIndex.value = 1;
                           },
-                          icon: Icons.iron,
+                          icon: Icons.next_week_rounded,
                           color2: AppColor.primaryYellow,
                           color1: AppColor.primaryYellow.withOpacity(0.06),
                           text1: "20",
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               // Get.toNamed(AppRouter.myOrderScreen);
                               bottomBarController.selectedIndex.value = 2;
                             },
-                            icon: Icons.iron,
+                            icon: Icons.my_library_books_sharp,
                             color2: AppColor.primary,
                             color1: AppColor.primary.withOpacity(0.06),
                             text1: myOrderController.order.length.toString(),

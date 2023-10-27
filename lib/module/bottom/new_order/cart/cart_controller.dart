@@ -8,11 +8,15 @@ import '../../../../utils/const_string.dart';
 import '../../../../utils/firebase_string.dart';
 import '../../../../widgets/app_loader.dart';
 import '../../../../widgets/error_sheet.dart';
+import '../../my_order/my_order_controller.dart';
+import '../product_selection_screen/product_selection_controller.dart';
 
 class CartController extends GetxController{
   final random = Random();
   RxInt total = 0.obs;
   // RxInt orderCount = 1.obs;
+  final myOrderController = Get.put<MyOrderController>(MyOrderController());
+  final productSelectionController = Get.put<ProductSelectionController>(ProductSelectionController());
 
   bool isChecked = false;
   bool isCheckedLaundryOne = false;
@@ -50,6 +54,12 @@ class CartController extends GetxController{
           {
         'orders': FieldValue.arrayUnion([newAddress]),
       });
+      Get.back();
+      myOrderController.fetchOrder();
+      total.value =0;
+      for(int i=0;i<productSelectionController.productList.length;i++){
+        productSelectionController.productList[i]['count'] = 0;
+      }
 
       // controller.addAddress(newAddress);
 

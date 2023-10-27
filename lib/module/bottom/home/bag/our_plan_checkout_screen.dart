@@ -5,9 +5,6 @@ import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:http/http.dart' as http;
 
-import '../../home/home_screen.dart';
-
-
 class OurPlanCheckOutScreen extends StatefulWidget {
   const OurPlanCheckOutScreen({super.key, required this.index});
   final int index;
@@ -116,7 +113,7 @@ class _CheckOutScreenState extends State<OurPlanCheckOutScreen> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
             CommonAppButton(
               buttonType: ButtonType.enable,
@@ -127,7 +124,7 @@ class _CheckOutScreenState extends State<OurPlanCheckOutScreen> {
                 // Get.toNamed(AppRouter.checkOutScreen);
                 // registerController.registerUser();
               },
-            ),
+            )
           ],
         ),
       ),
@@ -157,14 +154,14 @@ class _CheckOutScreenState extends State<OurPlanCheckOutScreen> {
   displayPaymentSheet(index) async {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
-        Timer timer = Timer(Duration(milliseconds: 2000), (){
+        Timer timer = Timer(const Duration(milliseconds: 2000), () {
           Navigator.of(context, rootNavigator: true).pop();
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => BottomBarScreen(),
+              builder: (BuildContext context) => const BottomBarScreen(),
             ),
-                (route) => false,//if you want to disable back feature set to false
+                (route) => false, //if you want to disable back feature set to false
           );
         });
         showDialog(
@@ -179,7 +176,7 @@ class _CheckOutScreenState extends State<OurPlanCheckOutScreen> {
                     size: 100.0,
                   ),
                   SizedBox(height: 10.0),
-                  Text("Payment Successful!"),
+                  Text("Payment Successful & Your Plan is Successfully Subscribed!"),
                 ],
               ),
             ));

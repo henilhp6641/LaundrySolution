@@ -2,8 +2,6 @@ import '../../../../package/config_packages.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../../../utils/const_string.dart';
-
 class LaundryOneScreen extends StatefulWidget {
   @override
   State<LaundryOneScreen> createState() => _LaundryOneScreenState();

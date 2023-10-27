@@ -1,6 +1,5 @@
 import 'package:ft_washing_app/module/bottom/home/bag/our_plan.dart';
 import 'package:ft_washing_app/module/bottom/home/how_works/how_works_screen.dart';
-import 'package:ft_washing_app/module/bottom/my_order/my_order_controller.dart';
 import 'package:ft_washing_app/module/bottom/my_order/my_order_screen.dart';
 import 'package:ft_washing_app/module/bottom/new_order/address_selection/address_selection_screen.dart';
 import 'package:ft_washing_app/module/bottom/new_order/cart/cart_screen.dart';
@@ -44,8 +43,8 @@ class AppRouter {
 
   static List<GetPage> getPages = [
     GetPage(name: splash, page: () => const SplashScreen()),
-    GetPage(name: login, page: () => LoginScreen()),
-    GetPage(name: register, page: () => RegisterScreen()),
+    GetPage(name: login, page: () => const LoginScreen()),
+    GetPage(name: register, page: () => const RegisterScreen()),
     GetPage(
         name: emailVerification, page: () => const EmailVerificationScreen()),
     GetPage(
@@ -54,7 +53,7 @@ class AppRouter {
     GetPage(name: monthlyBag, page: () => const OurPlanScreen()),
     GetPage(name: editProfile, page: () => const EditProfileScreen()),
     GetPage(name: laundryOneScreen, page: () => LaundryOneScreen()),
-    GetPage(name: membershipScreen, page: () => MembershipScreen()),
+    GetPage(name: membershipScreen, page: () => const MembershipScreen()),
     GetPage(name: changePassword, page: () => const ChangePasswordScreen()),
     GetPage(name: myPlan, page: () => const MyPlansScreen()),
     GetPage(name: allAddress, page: () => const AllAddressScreen()),
@@ -66,6 +65,6 @@ class AppRouter {
     GetPage(name: checkOutScreen, page: () => const CheckOutScreen()),
     // GetPage(name: ourPlanCheckOutScreen, page: () =>  OurPlanCheckOutScreen(index: null,)),
     GetPage(name: addressSelectionScreen, page: () => const AddressSelectionScreen()),
-    GetPage(name: myProfileScreen, page: () =>  MyProfileScreen()),
+    GetPage(name: myProfileScreen, page: () =>  const MyProfileScreen()),
   ];
 }

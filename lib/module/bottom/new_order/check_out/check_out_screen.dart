@@ -1,13 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:ft_washing_app/components/loading_screen.dart';
 import 'package:ft_washing_app/module/bottom/new_order/product_selection_screen/product_selection_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:http/http.dart' as http;
 import '../../profile/address/all_address_controller.dart';
+import '../../profile/laundry_one/laundry_one_controller.dart';
 import '../cart/cart_controller.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -24,6 +22,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   final allAddressController =
       Get.put<AllAddressController>(AllAddressController());
+  final laundryOneController =
+      Get.put<LaundryOneController>(LaundryOneController());
 
   @override
   Widget build(BuildContext context) {
@@ -80,74 +80,83 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               const SizedBox(
                 height: 10,
               ),
-              ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: AppColor.primary,
-                        width: 1,
-                      ),
-                      color: AppColor.primary.withOpacity(0.06),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  allAddressController.addresses[
-                                      allAddressController
-                                          .selectedIndex!.value]['address1'],
-                                  style: const TextStyle().normal18w600,
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 4),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: AppColor.primary,
-                                  ),
-                                  child: Text(
-                                    "Home",
-                                    style: const TextStyle()
-                                        .normal14w500
-                                        .textColor(AppColor.white),
-                                  ),
-                                ),
-                              ],
+              allAddressController.addresses.isEmpty
+                  ? const Center(
+                      child: Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Text('No Addresses Found'),
+                    ))
+                  : ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 1,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: AppColor.primary,
+                              width: 1,
                             ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          allAddressController.addresses[allAddressController
-                              .selectedIndex!.value]['address2'],
-                          style: const TextStyle().normal16w400,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "${allAddressController.addresses[allAddressController.selectedIndex!.value]['city']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['country']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['postalCode']}",
-                          style: const TextStyle().normal16w400,
-                        ),
-                      ],
+                            color: AppColor.primary.withOpacity(0.06),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        allAddressController.addresses[
+                                            allAddressController.selectedIndex!
+                                                .value]['address1'],
+                                        style: const TextStyle().normal18w600,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 4),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          color: AppColor.primary,
+                                        ),
+                                        child: Text(
+                                          "Home",
+                                          style: const TextStyle()
+                                              .normal14w500
+                                              .textColor(AppColor.white),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                allAddressController.addresses[
+                                    allAddressController
+                                        .selectedIndex!.value]['address2'],
+                                style: const TextStyle().normal16w400,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "${allAddressController.addresses[allAddressController.selectedIndex!.value]['city']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['country']}, ${allAddressController.addresses[allAddressController.selectedIndex!.value]['postalCode']}",
+                                style: const TextStyle().normal16w400,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
               const SizedBox(
                 height: 20,
               ),
@@ -214,65 +223,80 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
               cartController.isChecked
                   ? Container()
-                  : Row(
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              setState(() {
-                                cartController.isCheckedLaundryOne =
-                                    !cartController.isCheckedLaundryOne;
-                              });
-                            },
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle, color: Colors.white),
-                              child: cartController.isCheckedLaundryOne
-                                  ? Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.green),
-                                      child: const Icon(
-                                        Icons.check,
-                                        size: 15.0,
-                                        color: Colors.white,
-                                      ))
-                                  : Container(
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.black,
-                                      ),
-                                      padding: const EdgeInsets.all(0.0),
-                                      child: const Icon(
-                                        Icons.circle,
-                                        size: 25.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                            )),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Text(
-                          "You Want To Go With Your Laundry One Discount?",
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
+                  : laundryOneController.laundryOne['laundryOneStatus'] ==
+                          'Active'
+                      ? Row(
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    cartController.isCheckedLaundryOne =
+                                        !cartController.isCheckedLaundryOne;
+                                  });
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white),
+                                  child: cartController.isCheckedLaundryOne
+                                      ? Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.green),
+                                          child: const Icon(
+                                            Icons.check,
+                                            size: 15.0,
+                                            color: Colors.white,
+                                          ))
+                                      : Container(
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.black,
+                                          ),
+                                          padding: const EdgeInsets.all(0.0),
+                                          child: const Icon(
+                                            Icons.circle,
+                                            size: 25.0,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                )),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text(
+                              "You Want To Go With Your Laundry One Discount?",
+                              style: TextStyle(fontSize: 13.0),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ],
+                        )
+                      : Container(),
               cartController.isChecked
                   ? Container()
-                  : const SizedBox(
-                      height: 20,
-                    ),
+                  : laundryOneController.laundryOne['laundryOneStatus'] ==
+                          'Active'
+                      ? const SizedBox(
+                          height: 20,
+                        )
+                      : Container(),
               CommonAppButton(
                 buttonType: ButtonType.enable,
-                text: ConstString.confirmPayment,
+                text: cartController.isChecked
+                    ? ConstString.confirmOrder
+                    : ConstString.confirmPayment,
                 onTap: () async {
                   FocusScope.of(context).unfocus();
                   // const LoadingScreen();
-                  await makePayment();
+                  allAddressController.addresses.isEmpty
+                      ? openDialog()
+                      : cartController.isChecked
+                          ? confirmOrder()
+                          : await makePayment();
 
-                  Get.toNamed(AppRouter.checkOutScreen);
+                  // Get.toNamed(AppRouter.checkOutScreen);
                   // registerController.registerUser();
                 },
               ),
@@ -281,6 +305,64 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         );
       }),
     );
+  }
+
+  void openDialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text(ConstString.addAddressMessage),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text(ConstString.no),
+              ),
+              CupertinoDialogAction(
+                isDestructiveAction: true,
+                onPressed: () {
+                  Get.back();
+                  Get.back();
+                },
+                child: const Text(ConstString.yes),
+              ),
+            ],
+          );
+        });
+  }
+
+  void confirmOrder() {
+    cartController.total.value = 0;
+
+    Timer timer = Timer(const Duration(milliseconds: 2000), () {
+      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.pushAndRemoveUntil<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => const BottomBarScreen(),
+        ),
+        (route) => false, //if you want to disable back feature set to false
+      );
+    });
+    showDialog(
+        context: context,
+        builder: (_) => const AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 100.0,
+                  ),
+                  SizedBox(height: 10.0),
+                  Text("Your Order is Successfully Submitted!"),
+                ],
+              ),
+            ));
+    cartController.addOrder();
   }
 
   Future<void> makePayment() async {
@@ -316,29 +398,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             ),
             (route) => false, //if you want to disable back feature set to false
           );
-          showDialog(
-              context: context,
-              builder: (_) => const AlertDialog(
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
-                          size: 100.0,
-                        ),
-                        SizedBox(height: 10.0),
-                        Text(
-                            "Payment Successful! & Your Order is Successfully Placed!"),
-                      ],
-                    ),
-                  ));
         });
-
+        showDialog(
+            context: context,
+            builder: (_) => const AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 100.0,
+                      ),
+                      SizedBox(height: 10.0),
+                      Text(
+                          "Payment Successful & Your Order is Successfully Submitted!"),
+                    ],
+                  ),
+                ));
         cartController.addOrder();
-        // setState(() {
-        //   cartController.orderCount.value++;
-        // });
+
         paymentIntent = null;
       }).onError((error, stackTrace) {
         throw Exception(error);
@@ -397,8 +476,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         : cartController.isCheckedLaundryOne
             ? (cartController.total * 0.9 * 100).toInt()
             : cartController.total * 100;
-
-
 
     //     cartController.isChecked ? 0 : cartController.isCheckedLaundryOne
     //       ? 10

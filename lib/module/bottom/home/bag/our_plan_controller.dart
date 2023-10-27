@@ -34,7 +34,7 @@ class OurPlanController extends GetxController{
 
 
   Future<void> addPlan(index) async {
-    showLoader();
+     showLoader();
     FirebaseFirestore fireStore = FirebaseFirestore.instance;
     String userId = AppPref().uid;
     DocumentReference userRef = fireStore.collection(FirebaseString.users).doc(userId);
@@ -51,13 +51,13 @@ class OurPlanController extends GetxController{
         'plan': plan,
       });
 
-      dismissLoader();
+       dismissLoader();
 
       Get.back();
       // list[index]['status'] ="Active";
 
     } catch (e) {
-      dismissLoader();
+       dismissLoader();
       ErrorSheet.showErrorSheet("${ConstString.errorAddingAddress} $e");
     }
   }

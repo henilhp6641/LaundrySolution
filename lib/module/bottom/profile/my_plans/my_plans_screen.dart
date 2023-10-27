@@ -1,9 +1,6 @@
 import 'package:ft_washing_app/module/bottom/profile/my_plans/my_plans_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
-import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:ft_washing_app/utils/images.dart';
-
-import '../../home/bag/our_plan_checkout_screen.dart';
 import '../../home/bag/our_plan_controller.dart';
 
 class MyPlansScreen extends StatefulWidget {
@@ -42,7 +39,7 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
                       if (myPlanController.showProgress.value)
                         const CircularProgressIndicator()
                       else if (myPlanController.plan.isEmpty)
-                        Text('No Active Plan') // You can style this text according to your needs.
+                        const Text('No Active Plan') // You can style this text according to your needs.
                       else
                         Container(
                               decoration: BoxDecoration(

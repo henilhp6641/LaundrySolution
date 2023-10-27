@@ -80,7 +80,7 @@ class _AddressSelectionScreenState extends State<AddressSelectionScreen> {
                               padding: const EdgeInsets.only(top: 20),
                               shrinkWrap: true,
                               itemCount:
-                                  allAddressController.addresses.length ?? 0,
+                                  allAddressController.addresses.length,
                               itemBuilder: (context, index) {
 
                                 return Obx(() {
@@ -94,8 +94,6 @@ class _AddressSelectionScreenState extends State<AddressSelectionScreen> {
                                     onTap: () {
                                       allAddressController
                                           .selectedIndex!.value = index;
-                                      print(allAddressController
-                                          .selectedIndex!.value);
                                     },
                                     title: Container(
                                       decoration: BoxDecoration(

@@ -1,11 +1,9 @@
 import 'package:ft_washing_app/module/bottom/new_order/cart/cart_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
-import '../../../../utils/images.dart';
 import '../../profile/laundry_one/laundry_one_controller.dart';
 import '../../profile/my_plans/my_plans_controller.dart';
 import '../product_selection_screen/product_selection_controller.dart';
-import 'dart:math';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -102,7 +100,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             cartController.isChecked
                                 ? Text(
-                                    "-\$${cartController.total}",
+                                    "-\$ ${cartController.total}",
                                     style: const TextStyle().normal20w600,
                                   )
                                 : Text(
@@ -128,7 +126,7 @@ class _CartScreenState extends State<CartScreen> {
                                     style: const TextStyle().normal20w600,
                                   )
                                 : Text(
-                                    "\$${cartController.total}",
+                                    "\$ ${cartController.total}",
                                     style: const TextStyle().normal20w600,
                                   ),
                           ],
@@ -159,7 +157,8 @@ class _CartScreenState extends State<CartScreen> {
                                         .size(16)
                                         .textColor(AppColor.primary)
                                         .bold,
-                                    // overflow: TextOverflow.ellipsis,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
                                 )
                           : const Text("No Monthly Active Plan"),
@@ -209,7 +208,11 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               const Text(
                                 "You Want To Go With Your Active Monthly Plan?",
+                                style: TextStyle(fontSize: 13.0),
+
                                 overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+
                               ),
                             ],
                           ),
@@ -220,11 +223,37 @@ class _CartScreenState extends State<CartScreen> {
                         ) : const SizedBox(
                           height: 10,
                         ),
-                        CommonAppButton(
+                       CommonAppButton(
                           buttonType: ButtonType.enable,
                           text: ConstString.proceedCheckOut,
                           onTap: () {
                             FocusScope.of(context).unfocus();
+
+                            cartController.total.value ==0 ?
+                              showCupertinoDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return CupertinoAlertDialog(
+                                      title: const Text(ConstString.addItemMessage),
+                                      actions: [
+                                        CupertinoDialogAction(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: const Text(ConstString.no),
+                                        ),
+                                        CupertinoDialogAction(
+                                          isDestructiveAction: true,
+                                          onPressed: () {
+                                            Get.back();
+                                            Get.back();
+                                          },
+                                          child: const Text(ConstString.yes),
+                                        ),
+                                      ],
+                                    );
+                                  })
+                             :
                             Get.toNamed(AppRouter.addressSelectionScreen);
                             // registerController.registerUser();
                           },
@@ -238,7 +267,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
           body: GetBuilder<ProductSelectionController>(builder: (c) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.only(left: 20.0,right: 20,bottom: 75),
               child: ListView.builder(
                 padding: const EdgeInsets.only(bottom: 250),
                 itemCount: productSelectionController.productList.length,

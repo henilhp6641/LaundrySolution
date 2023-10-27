@@ -21,13 +21,18 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
         appBar: AppBar(),
         isShowBackButton: false,
         title: ConstString.makeYourOrder,
-        actions: const [
+        actions:  [
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: Icon(
-              Icons.shopping_bag_outlined,
-              color: AppColor.gray800,
-              size: 25,
+            padding: const EdgeInsets.only(right: 20.0),
+            child: InkWell(
+              onTap: (){
+                Get.toNamed(AppRouter.cartScreen);
+              },
+              child: const Icon(
+                Icons.shopping_bag_outlined,
+                color: AppColor.gray800,
+                size: 25,
+              ),
             ),
           )
         ],
@@ -67,7 +72,7 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
                             productSelectionController.productList[index]
                                 ['image'],
                             width: double.infinity,
-                            height: 130,
+                            height: 150,
                             // fit: BoxFit.,
                           ),
                         ),
@@ -81,7 +86,9 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
                               child: Text(
                                 productSelectionController.productList[index]
                                     ['product'],
-                                style: const TextStyle().normal20w400,
+                                style: const TextStyle().normal16w400.bold,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
                             ),
                             Row(
@@ -92,12 +99,12 @@ class _ProductSelectionScreenState extends State<ProductSelectionScreen> {
                                   size: 18,
                                 ),
                                 const SizedBox(
-                                  width: 5,
+                                  width: 1,
                                 ),
                                 Text(
                                   "4.9",
                                   style: const TextStyle()
-                                      .normal16w600
+                                      .size(15).bold
                                       .textColor(AppColor.gray400),
                                 ),
                               ],

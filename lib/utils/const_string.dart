@@ -33,6 +33,10 @@ class ConstString{
   static const yes = "Yes";
   static const logOutMessage = "Are you sure to log out?";
   static const deleteAddressMessage = "Are you sure to delete address?";
+  static const addAddressMessage = "Please add address for pickup and drop-off order!";
+  static const addItemMessage = "Please select items from new order page!";
+  static const singlePlanMessage = "You only able to subscribe single plan!";
+
   static const userProfile = "User Profile";
   static const howDoesItWork = "How does it work?";
   static const monthlyBags = "Monthly Bags";
@@ -68,6 +72,7 @@ class ConstString{
   static const register = "Register";
   static const proceedCheckOut = "Proceed to Checkout";
   static const confirmPayment = "Confirm Payment";
+  static const confirmOrder = "Confirm Order";
   static const next = "Next";
   static const receiveEmail = "Please Enter Your Email Address To Receive a Email";
   static const sendEmail = "Send Email";

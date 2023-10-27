@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 
 class HomeController extends GetxController {
@@ -18,8 +15,6 @@ class HomeController extends GetxController {
   RxString searchString = "".obs;
   @override
   void onInit() {
-    // final random = Random();
-    print("hhhh${(Random().nextInt(900000000))}");
     // TODO: implement onInit
     super.onInit();
   }

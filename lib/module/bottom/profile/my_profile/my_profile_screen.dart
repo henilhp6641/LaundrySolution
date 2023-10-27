@@ -1,6 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:ft_washing_app/module/bottom/profile/profile_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
@@ -58,14 +55,49 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
-                          child: ClipOval(
+                          child:ClipOval(
                             child: Image.network(
                               myProfileController.profile[0]['image'],
                               width: 100.0, // width of the circle
                               height: 100.0, // height of the circle
                               fit: BoxFit.cover,
+                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child; // If no loading progress, return the image widget
+
+                                return Container(
+                                  width: 100.0,
+                                  height: 100.0,
+                                  color: AppColor.primary.withOpacity(0.001),
+                                  child: Center(
+                                    child: Theme(
+                                      data: ThemeData(
+                                        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey) // Change the color scheme as per your requirement
+                                            .copyWith(secondary: AppColor.primary), // This will change the color of the CircularProgressIndicator
+                                        primaryColor: Colors.blue, // This also affects the CircularProgressIndicator color
+                                      ),
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress.expectedTotalBytes != null
+                                            ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
+
+
+
+                          // ClipOval(
+                          //   child:  myProfileController.profile[0]['image'].toString().isEmpty ? CircularProgressIndicator():Image.network(
+                          //     myProfileController.profile[0]['image'],
+                          //     width: 100.0, // width of the circle
+                          //     height: 100.0, // height of the circle
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          // ),
                         ),
                         MyProfileWidget(
                           title: ConstString.firstName,

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ft_washing_app/components/profile_container.dart';
 import 'package:ft_washing_app/module/bottom/profile/profile_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
