@@ -53,7 +53,7 @@ class OurPlanController extends GetxController{
 
        dismissLoader();
 
-      Get.back();
+      // Get.back();
       // list[index]['status'] ="Active";
 
     } catch (e) {

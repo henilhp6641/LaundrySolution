@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -53,7 +51,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                     const Divider(),
                     ListTile(
                         title: const Text('Current Membership'),
-                        subtitle: const Text('Monthly Plan - \$10.00'),
+                        subtitle: const Text('Monthly Plan - \$25.00'),
                         trailing: Text(
                           laundryOneController.laundryOne.isNotEmpty
                               ? "${laundryOneController.laundryOne['laundryOneStatus']}"
@@ -113,7 +111,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
         Timer timer = Timer(const Duration(milliseconds: 2000), () {
-          Navigator.of(context, rootNavigator: true).pop();
+          // Navigator.of(context, rootNavigator: true).pop();
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(

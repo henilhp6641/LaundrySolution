@@ -10,7 +10,7 @@ import '../../../../widgets/app_loader.dart';
 class LaundryOneController extends GetxController{
 
   RxBool showProgress = false.obs;
-  int laundryOnePrice=10;
+  int laundryOnePrice=25;
 
   Future<void> addLaundryOne() async {
 
@@ -29,7 +29,7 @@ class LaundryOneController extends GetxController{
         'laundryOne': laundryOne,
       });
       dismissLoader();
-      Get.back();
+      // Get.back();
 
     } catch (e) {
       dismissLoader();

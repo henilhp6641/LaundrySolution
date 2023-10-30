@@ -13,6 +13,7 @@ import 'package:ft_washing_app/module/bottom/profile/my_profile/my_profile_scree
 
 import 'module/bottom/profile/address/all_address_screen.dart';
 import 'module/bottom/profile/address/edit/add_address_screen.dart';
+import 'module/bottom/profile/laundry_one/insurance_term_screen.dart';
 import 'module/bottom/profile/laundry_one/laundry_one.dart';
 import 'package/config_packages.dart';
 
@@ -40,6 +41,7 @@ class AppRouter {
   static const myProfileScreen = '/myProfileScreen';
   static const laundryOneScreen = '/laundryOneScreen';
   static const membershipScreen = '/membershipScreen';
+  static const insuranceTermsScreen = '/insuranceTermsScreen';
 
   static List<GetPage> getPages = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -54,6 +56,7 @@ class AppRouter {
     GetPage(name: editProfile, page: () => const EditProfileScreen()),
     GetPage(name: laundryOneScreen, page: () => LaundryOneScreen()),
     GetPage(name: membershipScreen, page: () => const MembershipScreen()),
+    GetPage(name: insuranceTermsScreen, page: () =>  InsuranceTermsScreen()),
     GetPage(name: changePassword, page: () => const ChangePasswordScreen()),
     GetPage(name: myPlan, page: () => const MyPlansScreen()),
     GetPage(name: allAddress, page: () => const AllAddressScreen()),

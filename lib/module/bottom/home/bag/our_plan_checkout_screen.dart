@@ -155,7 +155,7 @@ class _CheckOutScreenState extends State<OurPlanCheckOutScreen> {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
         Timer timer = Timer(const Duration(milliseconds: 2000), () {
-          Navigator.of(context, rootNavigator: true).pop();
+          // Navigator.of(context, rootNavigator: true).pop();
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(

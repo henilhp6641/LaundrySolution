@@ -30,15 +30,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final bottomBarController =
-  Get.put<BottomBarController>(BottomBarController());
+      Get.put<BottomBarController>(BottomBarController());
 
   @override
   void initState() {
     super.initState();
 
-    var initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
-    cartController.flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    var initializationSettingsAndroid =
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    cartController.flutterLocalNotificationsPlugin
+        .initialize(initializationSettings);
 
     _firebaseMessaging.getToken().then((String? token) {
       assert(token != null);
@@ -63,7 +66,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         //     message.notification!.title ?? '', message.notification!.body ?? '');
       }
     });
-
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       _handleMessage(message);
@@ -93,7 +95,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   //   print("Context: $context");
   //   print("Response: $response");
   // }
-
 
   @override
   Widget build(BuildContext context) {
@@ -302,6 +303,33 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                   setState(() {
                                     cartController.isCheckedLaundryOne =
                                         !cartController.isCheckedLaundryOne;
+
+                                    if (cartController.isCheckedLaundryOne) {
+                                      showDialog(
+                                          context: context,
+                                          builder: (_) =>  AlertDialog(
+                                            content: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Icon(
+                                                  Icons.check_circle,
+                                                  color: Colors.green,
+                                                  size: 100.0,
+                                                ),
+                                                const SizedBox(height: 10.0),
+                                                const Text("Congratulation! You also get clothes insurance in LaundryOne subscription!"),
+                                                const SizedBox(height: 10.0),
+                                                InkWell(
+                                                    onTap: (){ Get.toNamed(AppRouter.insuranceTermsScreen);},
+                                                    child: const Text("Click here for information!",style: TextStyle(color: AppColor.primary, decoration: TextDecoration.underline,),)),
+                                              ],
+                                            ),
+                                          ));
+                                      // Close the dialog after 3 seconds
+                                      Future.delayed(const Duration(seconds: 5), () {
+                                        Navigator.of(context).pop();
+                                      });
+                                    }
                                   });
                                 },
                                 child: Container(
@@ -407,7 +435,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     cartController.total.value = 0;
 
     Timer timer = Timer(const Duration(milliseconds: 2000), () {
-      Navigator.of(context, rootNavigator: true).pop();
+      // Navigator.of(context, rootNavigator: true).pop();
       Navigator.pushAndRemoveUntil<dynamic>(
         context,
         MaterialPageRoute<dynamic>(
@@ -432,6 +460,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ],
               ),
             ));
+
     cartController.addOrder();
     cartController.showNotification();
   }
@@ -461,7 +490,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     try {
       await Stripe.instance.presentPaymentSheet().then((value) {
         Timer timer = Timer(const Duration(milliseconds: 2000), () {
-          Navigator.of(context, rootNavigator: true).pop();
+          // Navigator.of(context, rootNavigator: true).pop();
           Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
@@ -489,7 +518,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ));
         cartController.addOrder();
         cartController.showNotification();
-
 
         paymentIntent = null;
       }).onError((error, stackTrace) {

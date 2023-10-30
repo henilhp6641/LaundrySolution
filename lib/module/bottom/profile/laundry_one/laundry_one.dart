@@ -1,6 +1,5 @@
 import '../../../../package/config_packages.dart';
 
-import 'package:flutter/material.dart';
 
 class LaundryOneScreen extends StatefulWidget {
   @override
@@ -66,7 +65,19 @@ class _LaundryOneScreenState extends State<LaundryOneScreen> {
               leading: Icon(Icons.card_giftcard),
               title: Text('Exclusive offers and premium support'),
             ),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 5),
+            InkWell(
+              onTap: (){
+                Get.toNamed(AppRouter.insuranceTermsScreen);
+              },
+              child: const ListTile(
+                leading: Icon(Icons.baby_changing_station_outlined),
+                title: Text('Clothes Insurance'),
+                trailing: Icon(Icons.arrow_forward_ios, size: 14),
+              ),
+            ),
+
+            // const SizedBox(height: 5),
             InkWell(
               onTap: (){
                   Get.toNamed(AppRouter.membershipScreen);

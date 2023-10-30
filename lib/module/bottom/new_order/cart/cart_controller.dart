@@ -57,7 +57,7 @@ class CartController extends GetxController {
       await userRef.update({
         'orders': FieldValue.arrayUnion([newAddress]),
       });
-      Get.back();
+      // Get.back();
       myOrderController.fetchOrder();
       total.value = 0;
       for (int i = 0; i < productSelectionController.productList.length; i++) {
@@ -126,7 +126,7 @@ class CartController extends GetxController {
         NotificationDetails(android: androidPlatformChannelSpecifics);
     try {
       await flutterLocalNotificationsPlugin.show(0, 'Order Confirmation',
-          'Your Order has been Successfully Placed!', platformChannelSpecifics, payload: 'item_x',  // You can use this payload in the selectNotification callback if needed.
+          'Your Order has been Successfully Submitted!', platformChannelSpecifics, payload: 'item_x',  // You can use this payload in the selectNotification callback if needed.
       );
     } catch (e) {
       print('Error showing notification: $e');

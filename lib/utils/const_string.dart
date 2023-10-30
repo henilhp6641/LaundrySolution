@@ -12,6 +12,7 @@ class ConstString{
   static const profile = "Profile";
   static const editProfile = "Edit Profile";
   static const laundryLocation = "Laundry One";
+  static const laundryTerms = "Clothes Insurance";
   static const gender = "Gender";
   static const myProfile = "My Profile";
   static const cancel = "Cancel";
