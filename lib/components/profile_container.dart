@@ -7,12 +7,14 @@ class ProfileDividerWidget extends StatelessWidget {
     this.isRed,
     this.onTap,
     this.size,
+    this.width,
     super.key,
   });
 
   bool? isRed = false;
   String? icon1;
   double? size;
+  double? width;
   String? text;
   Function()? onTap;
 
@@ -43,8 +45,8 @@ class ProfileDividerWidget extends StatelessWidget {
                   //       isRed ?? false ? AppColor.primaryRed : AppColor.gray800,
                   //   size: 25,
                   // ),
-                  const SizedBox(
-                    width: 20,
+                   SizedBox(
+                    width: width,
                   ),
                   Text(
                     text ?? "",

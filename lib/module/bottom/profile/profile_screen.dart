@@ -102,25 +102,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ProfileDividerWidget(
-                    size: 22,
+                    size: 38,
+                    width: 12,
                     onTap: () {
                       Get.toNamed(AppRouter.myProfileScreen);
                     },
                     icon1: myProfile,
                     text: ConstString.myProfile,
                   ),
-                  // ProfileDividerWidget(
-                  //   size: 22,
-                  //
-                  //   onTap: () {
-                  //     Get.toNamed(AppRouter.editProfile);
-                  //   },
-                  //   icon1: editAccount,
-                  //   text: ConstString.editProfile,
-                  // ),
                   ProfileDividerWidget(
-                    size: 22,
-
+                    size: 30,
+                    width: 20,
                     onTap: () {
                       Get.toNamed(AppRouter.laundryOneScreen);
                     },
@@ -128,8 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     text: ConstString.laundryLocation,
                   ),
                   ProfileDividerWidget(
-                    size: 22,
-
+                    size: 30,
+                    width: 20,
                     onTap: () {
                       Get.toNamed(AppRouter.allAddress);
                     },
@@ -137,8 +129,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     text: ConstString.addAddress,
                   ),
                   ProfileDividerWidget(
-                    size: 22,
-
+                    size: 28,
+                    width: 20,
                     onTap: () {
                       Get.toNamed(AppRouter.myPlan);
                     },
@@ -146,8 +138,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     text: ConstString.myPlan,
                   ),
                   ProfileDividerWidget(
-                    size: 22,
-
+                    size: 35,
+                    width: 13,
                     onTap: () {
                       Get.toNamed(AppRouter.changePassword);
                     },
@@ -155,8 +147,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     text: ConstString.changePassword,
                   ),
                   ProfileDividerWidget(
-                    size: 22,
-
+                    size: 33,
+                    width: 14,
                     onTap: () {
                       openLogOutDialog();
                     },

@@ -1,9 +1,12 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ft_washing_app/module/bottom/new_order/product_selection_screen/product_selection_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:http/http.dart' as http;
+import '../../bottom_bar_controller.dart';
 import '../../profile/address/all_address_controller.dart';
 import '../../profile/laundry_one/laundry_one_controller.dart';
 import '../cart/cart_controller.dart';
@@ -24,6 +27,73 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       Get.put<AllAddressController>(AllAddressController());
   final laundryOneController =
       Get.put<LaundryOneController>(LaundryOneController());
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  final bottomBarController =
+  Get.put<BottomBarController>(BottomBarController());
+
+  @override
+  void initState() {
+    super.initState();
+
+    var initializationSettingsAndroid = const AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+    cartController.flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
+    _firebaseMessaging.getToken().then((String? token) {
+      assert(token != null);
+      setState(() {
+        cartController.fcmToken = token;
+      });
+      print("FCM Token: $token");
+    });
+
+    _firebaseMessaging.getInitialMessage().then((RemoteMessage? message) {
+      if (message != null) {
+        _handleMessage(message);
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage? message) {
+      print(
+          "Received a message while in foreground: ${message!.notification?.body}");
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        // cartController.showNotification(
+        //     message.notification!.title ?? '', message.notification!.body ?? '');
+      }
+    });
+
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      _handleMessage(message);
+    });
+  }
+
+  void _handleMessage(RemoteMessage? message) {
+    if (message != null) {
+      print("Notification clicked: ${message.notification?.body}");
+      // Handle the actual notification received from Firebase
+    } else {
+      print("Simulated notification tap from InkWell");
+      // Handle the simulated notification tap (e.g., display a dialog, navigate, etc.)
+    }
+  }
+
+  // void selectNotification(NotificationResponse response) async {
+  //   String? payload = response.payload;
+  //   if (payload != null) {
+  //     debugPrint('notification payload: $payload');
+  //   }
+  //
+  //     bottomBarController.selectedIndex.value=2;
+  //
+  //   Navigator.push(context, MaterialPageRoute(builder: (context) => MyOrderScreen()));
+  //
+  //   print("Context: $context");
+  //   print("Response: $response");
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -363,6 +433,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ),
             ));
     cartController.addOrder();
+    cartController.showNotification();
   }
 
   Future<void> makePayment() async {
@@ -376,7 +447,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   paymentIntentClientSecret: paymentIntent![
                       'client_secret'], //Gotten from payment intent
                   style: ThemeMode.dark,
-                  merchantDisplayName: 'Ikay'))
+                  merchantDisplayName: 'Okay'))
           .then((value) {});
 
       //STEP 3: Display Payment sheet
@@ -417,6 +488,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                 ));
         cartController.addOrder();
+        cartController.showNotification();
+
 
         paymentIntent = null;
       }).onError((error, stackTrace) {

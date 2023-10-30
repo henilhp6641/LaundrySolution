@@ -14,7 +14,7 @@ class HowDoesWorkController extends GetxController {
         desc: "We will collect the garments at the door of your house",
         title: "We withdraw",
         image:
-            "https://fashionista.com/.image/t_share/MTcxMjI5NDkwMjkzMjU0MTI2/laundry-washing-clothes-coronavirus-covid19.jpg"),
+            "https://www.rd.com/wp-content/uploads/2021/09/GettyImages-1181334518-MLedit.jpg?resize=1536%2C1024"),
     CustomClass(
         desc:
             "We use eco friendly detergents and treat your clothes with the utmost care",

@@ -37,10 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              logo,
-                              height: 50,
-                            ),
+                             Image.asset(
+                                logo,
+                                height: 50,
+                              ),
                             const SizedBox(
                               width: 7,
                             ),
@@ -49,9 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             bottomBarController.selectedIndex.value = 3;
-
                           },
                           child: ClipOval(
                             child: Container(
@@ -149,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: 20,
                         ),
                         Obx(
-                          ()=> HomeWidgetContainer(
+                          () => HomeWidgetContainer(
                             onTap: () {
                               // Get.toNamed(AppRouter.myOrderScreen);
                               bottomBarController.selectedIndex.value = 2;

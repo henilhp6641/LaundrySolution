@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
@@ -15,16 +16,16 @@ void main() async {
 
   // await FirebaseMessaging.instance.setAutoInitEnabled(true);
   //
-  // await FirebaseMessaging.instance
-  //     .requestPermission(alert: true, sound: true, badge: true);
-  // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-  //   alert: true,
-  //   badge: true,
-  //   sound: true,
-  // );
+  await FirebaseMessaging.instance
+      .requestPermission(alert: true, sound: true, badge: true);
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
   //
   // await NotificationUtils().initialize();
-  // FirebaseMessaging.instance.getToken().then((value) {});
+  // FirebaseMessaging.instance.getToken().then((value) {value=NotificationUtils().firebaseToken.toString();print("HHHHH $value");});
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
