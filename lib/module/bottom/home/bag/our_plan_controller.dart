@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ft_washing_app/module/bottom/profile/my_plans/my_plans_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:ft_washing_app/utils/firebase_string.dart';
@@ -9,6 +10,7 @@ import '../../../../widgets/app_loader.dart';
 
 class OurPlanController extends GetxController{
 
+  final controller = Get.put<MyPlanController>(MyPlanController());
 
   RxList list = [
     {
@@ -51,7 +53,10 @@ class OurPlanController extends GetxController{
         'plan': plan,
       });
 
-       dismissLoader();
+      controller.addPlan(plan);
+
+
+      dismissLoader();
 
       // Get.back();
       // list[index]['status'] ="Active";

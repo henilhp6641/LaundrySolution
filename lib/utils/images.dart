@@ -16,6 +16,7 @@ const changePassIcon = "${profile}padlock.png";
 const logOutIcon = "${profile}power.png";
 const yourPlanIcon = "${profile}quality.png";
 const myProfile = "${profile}myprofile.png";
+const nearby = "${profile}nearby.png";
 
 
 

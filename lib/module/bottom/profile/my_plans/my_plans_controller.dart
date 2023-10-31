@@ -9,6 +9,34 @@ class MyPlanController extends GetxController{
  RxMap<String, dynamic> plan = <String, dynamic>{}.obs;
  RxBool showProgress = false.obs;
 
+
+ void addPlan(Map<String, dynamic> map){
+  plan.value=map;
+  update();
+ }
+
+ Future<void> deletePlan() async {
+  // if (index >= 0 && index < plan.length) {
+    Map<String, dynamic> addressToDelete = plan;
+    await deletePlanInFirestore(addressToDelete);
+   plan.clear();
+  // }
+ }
+
+ Future<void> deletePlanInFirestore(Map<String, dynamic> address) async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String userId = AppPref().uid;
+  DocumentReference userRef =
+  firestore.collection(FirebaseString.users).doc(userId);
+
+  await userRef.update({
+   'plan': FieldValue.arrayRemove([address]),
+  });
+ }
+
+
+
+
  Future<Map<String, dynamic>?> getPlan() async {
   showProgress.value = true;
 

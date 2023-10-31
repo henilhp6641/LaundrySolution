@@ -1,6 +1,7 @@
 import 'package:ft_washing_app/module/bottom/profile/my_plans/my_plans_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/images.dart';
+import '../../../../utils/const_string.dart';
 import '../../home/bag/our_plan_controller.dart';
 
 class MyPlansScreen extends StatefulWidget {
@@ -129,10 +130,26 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
                                         ),
                                       ],
                                     ),
+                                  ),   GestureDetector(
+                                    onTap: () {
+                                      openDialog();
+                                    },
+                                    child: ClipOval(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(8),
+                                        color: AppColor.primary,
+                                        child: const Icon(
+                                          Icons.delete,
+                                          size: 22,
+                                          color: AppColor.white,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+
                     ],
                   ),
                 );
@@ -140,5 +157,31 @@ class _MyPlansScreenState extends State<MyPlansScreen> {
         ),
       ),
     );
+  }
+
+  void openDialog() {
+    showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: const Text(ConstString.deletePlanMessage),
+            actions: [
+              CupertinoDialogAction(
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text(ConstString.no),
+              ),
+              CupertinoDialogAction(
+                isDestructiveAction: true,
+                onPressed: () {
+                  myPlanController.deletePlan();
+                   Get.back();
+                },
+                child: const Text(ConstString.yes),
+              ),
+            ],
+          );
+        });
   }
 }

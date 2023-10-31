@@ -114,6 +114,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     size: 30,
                     width: 20,
                     onTap: () {
+                      Get.toNamed(AppRouter.laundryLocation);
+                    },
+                    icon1: nearby,
+                    text: ConstString.nearbyLaundryLocation,
+                  ),
+                  ProfileDividerWidget(
+                    size: 30,
+                    width: 20,
+                    onTap: () {
                       Get.toNamed(AppRouter.laundryOneScreen);
                     },
                     icon1: editAccount,

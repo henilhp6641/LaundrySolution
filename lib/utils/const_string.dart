@@ -12,6 +12,7 @@ class ConstString{
   static const profile = "Profile";
   static const editProfile = "Edit Profile";
   static const laundryLocation = "Laundry One";
+  static const nearbyLaundryLocation = "Nearby Laundry Location";
   static const laundryTerms = "Clothes Insurance";
   static const gender = "Gender";
   static const myProfile = "My Profile";
@@ -34,6 +35,7 @@ class ConstString{
   static const yes = "Yes";
   static const logOutMessage = "Are you sure to log out?";
   static const deleteAddressMessage = "Are you sure to delete address?";
+  static const deletePlanMessage = "Are you sure to delete active monthly plan?";
   static const addAddressMessage = "Please add address for pickup and drop-off order!";
   static const addItemMessage = "Please select items from new order page!";
   static const singlePlanMessage = "You only able to subscribe single plan!";
