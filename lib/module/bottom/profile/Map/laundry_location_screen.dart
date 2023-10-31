@@ -1,7 +1,7 @@
+
 import '../../../../package/config_packages.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
+import '../profile_controller.dart';
 
 class LaundryLocation extends StatefulWidget {
   const LaundryLocation({super.key});
@@ -11,6 +11,7 @@ class LaundryLocation extends StatefulWidget {
 }
 
 class _LaundryLocationState extends State<LaundryLocation> {
+  final profileController = Get.put<ProfileController>(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,11 @@ class _LaundryLocationState extends State<LaundryLocation> {
       ),
       body: Center(child: ElevatedButton(
           onPressed: launchURL,
-          child: Text("Google Map")))
+          child: const Text("Redirect me to Nearby Laundry Location")))
     );
   }
   launchURL() async {
-    const url = "https://www.google.com/maps/search/laundry+service/@45.4837179,-73.572568,13.33z?entry=ttu";
+    String url = "https://www.google.com/maps/search/laundry+service/@${profileController.currentPosition!.latitude},${profileController.currentPosition!.longitude},13.33z?entry=ttu";
     if (await canLaunch(url)) {
       await launch(url);
     } else {

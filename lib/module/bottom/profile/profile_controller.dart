@@ -1,13 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ft_washing_app/data/model/user_model.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
-import 'package:ft_washing_app/utils/firebase_string.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:geolocator/geolocator.dart';
 
 class ProfileController extends GetxController {
   final userData = Rxn<UserData>();
   final databaseReference = FirebaseDatabase.instance.reference();
+  Position? currentPosition;
 
   void fetchData() async {
     try {

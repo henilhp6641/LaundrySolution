@@ -2,6 +2,7 @@ import 'package:ft_washing_app/components/profile_container.dart';
 import 'package:ft_washing_app/module/bottom/profile/profile_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../../../utils/images.dart';
 
@@ -15,6 +16,26 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final profileController = Get.put<ProfileController>(ProfileController());
 
+  getCurrentLocation() async {
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        profileController.currentPosition = position;
+        print("Current Distance:-$profileController.currentPosition");
+        print("Current Latitude:-${profileController.currentPosition!.latitude}");
+        print("Current Longitude:-${profileController.currentPosition!.longitude}");
+      });
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentLocation();
+  }
   void openLogOutDialog() {
     showCupertinoDialog(
         context: context,

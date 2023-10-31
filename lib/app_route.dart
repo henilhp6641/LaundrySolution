@@ -5,7 +5,7 @@ import 'package:ft_washing_app/module/bottom/new_order/address_selection/address
 import 'package:ft_washing_app/module/bottom/new_order/cart/cart_screen.dart';
 import 'package:ft_washing_app/module/bottom/new_order/check_out/check_out_screen.dart';
 import 'package:ft_washing_app/module/bottom/new_order/product_selection_screen/product_selection_screen.dart';
-import 'package:ft_washing_app/module/bottom/profile/Map/laundry_location.dart';
+import 'package:ft_washing_app/module/bottom/profile/Map/laundry_location_screen.dart';
 import 'package:ft_washing_app/module/bottom/profile/change_password/change_password_screen.dart';
 import 'package:ft_washing_app/module/bottom/profile/edit/edit_profile_screen.dart';
 import 'package:ft_washing_app/module/bottom/profile/laundry_one/manage_membership.dart';
