@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 class ProfileController extends GetxController {
   final userData = Rxn<UserData>();
   final databaseReference = FirebaseDatabase.instance.reference();
+
   Position? currentPosition;
 
   void fetchData() async {
@@ -18,7 +19,6 @@ class ProfileController extends GetxController {
       print('Error : ${e.toString()}');
     }
   }
-
 
   // Future<void> fetchData() async {
   //   databaseReference.child('slider').once().then((DataSnapshot snapshot) {

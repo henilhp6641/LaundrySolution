@@ -3,6 +3,7 @@ import 'package:ft_washing_app/module/bottom/profile/profile_controller.dart';
 import 'package:ft_washing_app/package/config_packages.dart';
 import 'package:ft_washing_app/utils/const_string.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../utils/images.dart';
 
@@ -15,6 +16,16 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final profileController = Get.put<ProfileController>(ProfileController());
+
+  Future<void> requestLocationPermission() async {
+    var status = await Permission.location.status;
+    if (!status.isGranted) {
+      PermissionStatus newStatus = await Permission.location.request();
+      if (newStatus.isDenied) {
+        // User denied the permission, handle accordingly
+      }
+    }
+  }
 
   getCurrentLocation() async {
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
@@ -34,7 +45,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentLocation();
+    requestLocationPermission().then((_) {
+      getCurrentLocation();
+    });
   }
   void openLogOutDialog() {
     showCupertinoDialog(
