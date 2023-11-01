@@ -317,11 +317,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                                   size: 100.0,
                                                 ),
                                                 const SizedBox(height: 10.0),
-                                                const Text("Congratulation! You also get clothes insurance in LaundryOne subscription!"),
+                                                const Text("Congratulation! You also get clothes insurance in LaundryOne subscription!",textAlign: TextAlign.center,),
                                                 const SizedBox(height: 10.0),
                                                 InkWell(
                                                     onTap: (){ Get.toNamed(AppRouter.insuranceTermsScreen);},
-                                                    child: const Text("Click here for information!",style: TextStyle(color: AppColor.primary, decoration: TextDecoration.underline,),)),
+                                                    child: const Text("Click here for information!",textAlign: TextAlign.center,style: TextStyle(color: AppColor.primary, decoration: TextDecoration.underline,),)),
                                               ],
                                             ),
                                           ));
@@ -448,7 +448,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         context: context,
         builder: (_) => const AlertDialog(
               content: Column(
-                mainAxisSize: MainAxisSize.min,
+                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
                     Icons.check_circle,
@@ -456,7 +456,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     size: 100.0,
                   ),
                   SizedBox(height: 10.0),
-                  Text("Your Order is Successfully Submitted!"),
+                  Text("Your Order is Successfully Submitted!",textAlign: TextAlign.center,),
                 ],
               ),
             ));
@@ -512,7 +512,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                          "Payment Successful & Your Order is Successfully Submitted!"),
+                          "Payment Successful & Your Order is Successfully Submitted!",textAlign: TextAlign.center),
                     ],
                   ),
                 ));

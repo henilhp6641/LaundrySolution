@@ -176,7 +176,7 @@ class _CheckOutScreenState extends State<OurPlanCheckOutScreen> {
                     size: 100.0,
                   ),
                   SizedBox(height: 10.0),
-                  Text("Payment Successful & Your Plan is Successfully Subscribed!"),
+                  Text("Payment Successful & Your Plan is Successfully Subscribed!",textAlign: TextAlign.center),
                 ],
               ),
             ));

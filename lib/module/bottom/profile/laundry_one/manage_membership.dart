@@ -132,7 +132,7 @@ class _MembershipScreenState extends State<MembershipScreen> {
                         size: 100.0,
                       ),
                       SizedBox(height: 10.0),
-                      Text("Payment Successful!"),
+                      Text("Payment Successful!",textAlign: TextAlign.center),
                     ],
                   ),
                 ));

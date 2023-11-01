@@ -163,7 +163,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Obx(
                   () => CommonAppButton(
