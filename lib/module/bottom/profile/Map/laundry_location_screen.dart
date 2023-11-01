@@ -16,8 +16,6 @@ class _LaundryLocationState extends State<LaundryLocation> {
 
   final Completer<GoogleMapController> _controller = Completer();
 
-
-
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
   }
@@ -26,13 +24,6 @@ class _LaundryLocationState extends State<LaundryLocation> {
   Widget build(BuildContext context) {
     LatLng _center = LatLng(profileController.currentPosition!.latitude,
         profileController.currentPosition!.longitude);
-
-    // List<Marker> markers = <Marker>[
-    //   Marker(
-    //       markerId: MarkerId('SomeId'),
-    //       position: LatLng(61.52426801237001, 23.781180193817125),
-    //       infoWindow: InfoWindow(title: 'The title of the marker'))
-    // ];
 
     return Scaffold(
         appBar: CommonAppBar(

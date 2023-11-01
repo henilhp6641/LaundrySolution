@@ -116,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     registerController.image == null
                         ? ClipOval(
                             child: Image.asset(
-                              profileIcon,
+                              myProfile,
                               height: 150,
                               width: 150,
                               fit: BoxFit.cover,
