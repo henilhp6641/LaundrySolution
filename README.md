@@ -59,5 +59,5 @@ To integrate Firebase into your Laundry App for both the user and driver interfa
 
 ## Usage
 
-- **User App: After installation, register and log in to start using the laundry services. Select your clothes, schedule a pickup, and choose a washing plan.
-- **Driver App: Log in to receive and manage laundry orders. Use the app for navigation and order tracking.
+- User App: After installation, register and log in to start using the laundry services. Select your clothes, schedule a pickup, and choose a washing plan.
+- Driver App: Log in to receive and manage laundry orders. Use the app for navigation and order tracking.
