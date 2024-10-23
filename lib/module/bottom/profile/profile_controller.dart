@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 
 class ProfileController extends GetxController {
   final userData = Rxn<UserData>();
-  final databaseReference = FirebaseDatabase.instance.reference();
+  final databaseReference = FirebaseDatabase.instance.ref();
 
   Position? currentPosition;
 
